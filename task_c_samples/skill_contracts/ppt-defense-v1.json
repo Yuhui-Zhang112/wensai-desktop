@@ -1,0 +1,447 @@
+{
+  "id": "ppt-defense-review",
+  "version": 1,
+  "material_type": "ppt_defense",
+  "inputs": [
+    "approved_text",
+    "separately_approved_PPT_images",
+    "profile.dimensions",
+    "retrieved_reference_notes"
+  ],
+  "steps": [
+    "按幻灯片顺序看问题、方案和数据能否串成清晰讲述。",
+    "观察文字密度和视觉优先级。只有确实收到图片时才评价对应图像的可见表现。",
+    "从明确的限时或讲述线索判断节奏；没有证据时不猜演讲时长、字号或版式。"
+  ],
+  "scoring": "0–2：证据显示严重缺陷；3–5：主要环节缺失；6–8：基本成立且有明确改进处；9–10：证据充分。没有直接证据时省略该维度。",
+  "criterion_ids": [
+    "logic",
+    "density",
+    "hierarchy",
+    "readability",
+    "pacing"
+  ],
+  "citations": "只引用本段 ref；文字引用连续原句，图片引用对象并把 quote 填 null。",
+  "standards": [
+    {
+      "id": "logic",
+      "name": "逻辑",
+      "weight": 25,
+      "criteria": [
+        "用问题、解决方案、验证证据与下一步串起讲述"
+      ]
+    },
+    {
+      "id": "density",
+      "name": "信息密度",
+      "weight": 20,
+      "criteria": [
+        "每页主张明确，优先使用图表解释核心结果"
+      ]
+    },
+    {
+      "id": "hierarchy",
+      "name": "视觉层次",
+      "weight": 20,
+      "criteria": [
+        "标题、重点与辅助信息层次清晰"
+      ]
+    },
+    {
+      "id": "readability",
+      "name": "字体可读性",
+      "weight": 20,
+      "criteria": [
+        "核对字号、对比度及图表标识",
+        "字号无法确认时给出证据不足，不能推测数值"
+      ]
+    },
+    {
+      "id": "pacing",
+      "name": "答辩节奏",
+      "weight": 15,
+      "criteria": [
+        "结合目标时长、页间转场和演示段落判断",
+        "缺少限时或讲稿时说明不能确认节奏"
+      ]
+    }
+  ],
+  "chunk_output_schema": {
+    "$defs": {
+      "ModelDimension": {
+        "additionalProperties": false,
+        "properties": {
+          "criterion": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Criterion",
+            "type": "string"
+          },
+          "score": {
+            "maximum": 10,
+            "minimum": 0,
+            "title": "Score",
+            "type": "integer"
+          },
+          "rationale": {
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Rationale",
+            "type": "string"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/$defs/ModelEvidence"
+            },
+            "maxItems": 3,
+            "minItems": 1,
+            "title": "Evidence",
+            "type": "array"
+          }
+        },
+        "required": [
+          "criterion",
+          "score",
+          "rationale",
+          "evidence"
+        ],
+        "title": "ModelDimension",
+        "type": "object"
+      },
+      "ModelEvidence": {
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "pattern": "^[ti][0-9]+$",
+            "title": "Ref",
+            "type": "string"
+          },
+          "quote": {
+            "anyOf": [
+              {
+                "maxLength": 400,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quote"
+          }
+        },
+        "required": [
+          "ref",
+          "quote"
+        ],
+        "title": "ModelEvidence",
+        "type": "object"
+      },
+      "ModelIssue": {
+        "additionalProperties": false,
+        "properties": {
+          "criterion": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Criterion",
+            "type": "string"
+          },
+          "standard_index": {
+            "maximum": 20,
+            "minimum": 0,
+            "title": "Standard Index",
+            "type": "integer"
+          },
+          "impact": {
+            "enum": [
+              "invalidates",
+              "weakens",
+              "presentation"
+            ],
+            "title": "Impact",
+            "type": "string"
+          },
+          "evidence": {
+            "$ref": "#/$defs/ModelEvidence"
+          },
+          "suggestion": {
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Suggestion",
+            "type": "string"
+          }
+        },
+        "required": [
+          "criterion",
+          "standard_index",
+          "impact",
+          "evidence",
+          "suggestion"
+        ],
+        "title": "ModelIssue",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "dimensions": {
+        "items": {
+          "$ref": "#/$defs/ModelDimension"
+        },
+        "maxItems": 6,
+        "title": "Dimensions",
+        "type": "array"
+      },
+      "issues": {
+        "items": {
+          "$ref": "#/$defs/ModelIssue"
+        },
+        "maxItems": 6,
+        "title": "Issues",
+        "type": "array"
+      }
+    },
+    "required": [
+      "dimensions",
+      "issues"
+    ],
+    "title": "ChunkReview",
+    "type": "object"
+  },
+  "merged_review_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "ppt-defense-v1 评审结果",
+    "type": "object",
+    "properties": {
+      "profile_id": {
+        "const": "ppt-defense-v1"
+      },
+      "summary": {
+        "type": "string",
+        "minLength": 1
+      },
+      "dimensions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "enum": [
+                "logic",
+                "density",
+                "hierarchy",
+                "readability",
+                "pacing"
+              ]
+            },
+            "status": {
+              "enum": [
+                "evaluated",
+                "insufficient_evidence"
+              ]
+            },
+            "score": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 10
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "block_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "source": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "page": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "slide": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "section": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "paragraph": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "line_start": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "line_end": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "part": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "bbox": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": "number"
+                        },
+                        "minItems": 4,
+                        "maxItems": 4
+                      },
+                      "coordinate_space": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "excerpt": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "block_id",
+                  "source",
+                  "excerpt"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "suggestions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "required": [
+            "id",
+            "status",
+            "score",
+            "rationale",
+            "evidence",
+            "suggestions"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "evaluated"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "score": {
+                    "type": "integer"
+                  },
+                  "evidence": {
+                    "minItems": 1
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "score": {
+                    "type": "null"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "minItems": 5,
+        "maxItems": 5
+      },
+      "priority_actions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "priority": {
+              "enum": [
+                "high",
+                "medium",
+                "low"
+              ]
+            },
+            "action": {
+              "type": "string",
+              "minLength": 1
+            },
+            "block_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "priority",
+            "action",
+            "block_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "profile_id",
+      "summary",
+      "dimensions",
+      "priority_actions"
+    ],
+    "additionalProperties": false
+  }
+}

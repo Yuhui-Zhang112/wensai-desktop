@@ -1,0 +1,358 @@
+{
+  "id": "ppt-defense-v1",
+  "version": 1,
+  "material_type": "ppt_defense",
+  "title": "PPT 答辩评审",
+  "scope": "问赛首版示范规范，适合自查。不作为某场比赛或学校的官方要求；赛事资料须按竞赛、年份和赛道核对。",
+  "dimensions": [
+    {
+      "id": "logic",
+      "name": "逻辑",
+      "weight": 25,
+      "criteria": [
+        "用问题、解决方案、验证证据与下一步串起讲述"
+      ]
+    },
+    {
+      "id": "density",
+      "name": "信息密度",
+      "weight": 20,
+      "criteria": [
+        "每页主张明确，优先使用图表解释核心结果"
+      ]
+    },
+    {
+      "id": "hierarchy",
+      "name": "视觉层次",
+      "weight": 20,
+      "criteria": [
+        "标题、重点与辅助信息层次清晰"
+      ]
+    },
+    {
+      "id": "readability",
+      "name": "字体可读性",
+      "weight": 20,
+      "criteria": [
+        "核对字号、对比度及图表标识",
+        "字号无法确认时给出证据不足，不能推测数值"
+      ]
+    },
+    {
+      "id": "pacing",
+      "name": "答辩节奏",
+      "weight": 15,
+      "criteria": [
+        "结合目标时长、页间转场和演示段落判断",
+        "缺少限时或讲稿时说明不能确认节奏"
+      ]
+    }
+  ],
+  "format_rules": [
+    {
+      "id": "slide-density",
+      "title": "每页结构与信息密度",
+      "handler": "slides_metrics",
+      "formats": [
+        "pptx"
+      ],
+      "severity": "advice",
+      "params": {
+        "max_chars": 120
+      }
+    },
+    {
+      "id": "slide-fonts",
+      "title": "标题和正文字号",
+      "handler": "slides_fonts",
+      "formats": [
+        "pptx"
+      ],
+      "severity": "advice",
+      "params": {
+        "title_pt": 28,
+        "body_pt": 18
+      }
+    },
+    {
+      "id": "slide-hierarchy",
+      "title": "标题与正文视觉层级",
+      "handler": "slides_hierarchy",
+      "formats": [
+        "pptx"
+      ],
+      "severity": "advice",
+      "params": {
+        "min_title_delta_pt": 4
+      }
+    },
+    {
+      "id": "slide-count",
+      "title": "幻灯片数量",
+      "handler": "page_count",
+      "formats": [
+        "pptx"
+      ],
+      "severity": "advice",
+      "params": {
+        "min": 3,
+        "max": 20
+      }
+    },
+    {
+      "id": "slide-submission",
+      "title": "文件格式和体积",
+      "handler": "file_submission",
+      "formats": [],
+      "severity": "error",
+      "params": {
+        "formats": [
+          "pptx"
+        ],
+        "max_bytes": 31457280
+      }
+    }
+  ],
+  "output_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "ppt-defense-v1 评审结果",
+    "type": "object",
+    "properties": {
+      "profile_id": {
+        "const": "ppt-defense-v1"
+      },
+      "summary": {
+        "type": "string",
+        "minLength": 1
+      },
+      "dimensions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "enum": [
+                "logic",
+                "density",
+                "hierarchy",
+                "readability",
+                "pacing"
+              ]
+            },
+            "status": {
+              "enum": [
+                "evaluated",
+                "insufficient_evidence"
+              ]
+            },
+            "score": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 10
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "block_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "source": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "page": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "slide": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "section": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "paragraph": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "line_start": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "line_end": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "part": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "bbox": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": "number"
+                        },
+                        "minItems": 4,
+                        "maxItems": 4
+                      },
+                      "coordinate_space": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "excerpt": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "block_id",
+                  "source",
+                  "excerpt"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "suggestions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "required": [
+            "id",
+            "status",
+            "score",
+            "rationale",
+            "evidence",
+            "suggestions"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "evaluated"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "score": {
+                    "type": "integer"
+                  },
+                  "evidence": {
+                    "minItems": 1
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "score": {
+                    "type": "null"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "minItems": 5,
+        "maxItems": 5
+      },
+      "priority_actions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "priority": {
+              "enum": [
+                "high",
+                "medium",
+                "low"
+              ]
+            },
+            "action": {
+              "type": "string",
+              "minLength": 1
+            },
+            "block_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "priority",
+            "action",
+            "block_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "profile_id",
+      "summary",
+      "dimensions",
+      "priority_actions"
+    ],
+    "additionalProperties": false
+  },
+  "knowledge_refs": [
+    "cicsic-2025-rules",
+    "robomaster-2025-review",
+    "case-rm-pacing",
+    "case-cicsic-objective"
+  ]
+}

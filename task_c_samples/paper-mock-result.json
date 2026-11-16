@@ -1,0 +1,148 @@
+{
+  "result": {
+    "schema_version": "1.0",
+    "meta": {
+      "task_id": "paper",
+      "revision_id": "synthetic-r1",
+      "profile_id": "academic-paper-v1",
+      "profile_version": 1,
+      "skill_id": "academic-paper-review",
+      "skill_version": 1,
+      "provider": "mock",
+      "model": "wensai-mock-v1",
+      "started_at": "2026-11-16T14:42:14.725528Z",
+      "finished_at": "2026-11-16T14:42:14.744658Z",
+      "status": "completed",
+      "text_count": 1,
+      "image_count": 0,
+      "chunk_count": 1,
+      "reference_ids": []
+    },
+    "review": {
+      "profile_id": "academic-paper-v1",
+      "summary": "Mock：固定教学样例，仅供验收。 1/4 个维度有证据，发现 1 条去重问题。",
+      "dimensions": [
+        {
+          "id": "innovation",
+          "status": "insufficient_evidence",
+          "score": null,
+          "rationale": "已确认且成功评审的范围内无可引用证据。",
+          "evidence": [],
+          "suggestions": []
+        },
+        {
+          "id": "methodology",
+          "status": "evaluated",
+          "score": 3,
+          "rationale": "任务 C 的固定教学样例命中。",
+          "evidence": [
+            {
+              "block_id": "docx/body/p/4",
+              "source": {
+                "path": "docx/body/p/4",
+                "page": null,
+                "slide": null,
+                "section": 1,
+                "paragraph": 4,
+                "line_start": null,
+                "line_end": null,
+                "bbox": null,
+                "coordinate_space": null,
+                "part": "word/document.xml"
+              },
+              "excerpt": "所有实验只测量一次"
+            }
+          ],
+          "suggestions": [
+            "增加独立重复测量，报告均值、波动和对照条件。"
+          ]
+        },
+        {
+          "id": "evidence",
+          "status": "insufficient_evidence",
+          "score": null,
+          "rationale": "已确认且成功评审的范围内无可引用证据。",
+          "evidence": [],
+          "suggestions": []
+        },
+        {
+          "id": "writing_norms",
+          "status": "insufficient_evidence",
+          "score": null,
+          "rationale": "已确认且成功评审的范围内无可引用证据。",
+          "evidence": [],
+          "suggestions": []
+        }
+      ],
+      "priority_actions": [
+        {
+          "priority": "high",
+          "action": "增加独立重复测量，报告均值、波动和对照条件。",
+          "block_id": "docx/body/p/4"
+        }
+      ]
+    },
+    "issues": [
+      {
+        "id": "issue-f4b9d64e2522cf94bb8d0aaf",
+        "location": {
+          "block_id": "docx/body/p/4",
+          "source": {
+            "path": "docx/body/p/4",
+            "page": null,
+            "slide": null,
+            "section": 1,
+            "paragraph": 4,
+            "line_start": null,
+            "line_end": null,
+            "bbox": null,
+            "coordinate_space": null,
+            "part": "word/document.xml"
+          },
+          "char_start": 11,
+          "char_end": 20
+        },
+        "severity": "high",
+        "criterion": "methodology",
+        "criterion_name": "研究方法",
+        "standard_index": 0,
+        "review_standard": "说明数据、实验设计、对照组和可复现过程",
+        "evidence": {
+          "kind": "text",
+          "quote": "所有实验只测量一次",
+          "image_sha256": null
+        },
+        "suggestion": "增加独立重复测量，报告均值、波动和对照条件。"
+      }
+    ],
+    "total_score": null
+  },
+  "audit": [
+    {
+      "task_id": "paper",
+      "profile_id": "academic-paper-v1",
+      "profile_version": 1,
+      "skill_id": "academic-paper-review",
+      "skill_version": 1,
+      "model": "wensai-mock-v1",
+      "chunk": 1,
+      "attempt": 1,
+      "request_time": "2026-11-16T14:42:14.744658Z",
+      "duration_ms": 0,
+      "status": "completed",
+      "error_code": null,
+      "http_status": null,
+      "input_bytes": 2781,
+      "image_count": 0
+    }
+  ],
+  "edit_example": {
+    "task_id": "paper",
+    "revision_id": "synthetic-r1",
+    "issue_id": "issue-f4b9d64e2522cf94bb8d0aaf",
+    "version": 1,
+    "previous": "增加独立重复测量，报告均值、波动和对照条件。",
+    "suggestion": "加入明确、可复核的验收步骤。"
+  },
+  "original_unchanged": true
+}

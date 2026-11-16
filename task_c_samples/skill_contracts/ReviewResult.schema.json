@@ -1,0 +1,458 @@
+{
+  "$defs": {
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "text",
+            "image"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "quote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Quote"
+        },
+        "image_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Image Sha256"
+        }
+      },
+      "required": [
+        "kind",
+        "quote"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "Issue": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/$defs/Location"
+        },
+        "severity": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "criterion": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Criterion",
+          "type": "string"
+        },
+        "criterion_name": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Criterion Name",
+          "type": "string"
+        },
+        "standard_index": {
+          "title": "Standard Index",
+          "type": "integer"
+        },
+        "review_standard": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Review Standard",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/Evidence"
+        },
+        "suggestion": {
+          "maxLength": 700,
+          "minLength": 1,
+          "title": "Suggestion",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "location",
+        "severity",
+        "criterion",
+        "criterion_name",
+        "standard_index",
+        "review_standard",
+        "evidence",
+        "suggestion"
+      ],
+      "title": "Issue",
+      "type": "object"
+    },
+    "Location": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Block Id",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/SourceRef"
+        },
+        "char_start": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Char Start"
+        },
+        "char_end": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Char End"
+        }
+      },
+      "required": [
+        "block_id",
+        "source"
+      ],
+      "title": "Location",
+      "type": "object"
+    },
+    "RunMeta": {
+      "additionalProperties": false,
+      "properties": {
+        "task_id": {
+          "pattern": "^[A-Za-z0-9_.:-]{1,100}$",
+          "title": "Task Id",
+          "type": "string"
+        },
+        "revision_id": {
+          "pattern": "^[A-Za-z0-9_.:-]{1,100}$",
+          "title": "Revision Id",
+          "type": "string"
+        },
+        "profile_id": {
+          "pattern": "^[A-Za-z0-9_.:-]{1,100}$",
+          "title": "Profile Id",
+          "type": "string"
+        },
+        "profile_version": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Profile Version"
+        },
+        "skill_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Skill Id"
+        },
+        "skill_version": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Skill Version"
+        },
+        "provider": {
+          "enum": [
+            "mock",
+            "deepseek"
+          ],
+          "title": "Provider",
+          "type": "string"
+        },
+        "model": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Model",
+          "type": "string"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "finished_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Finished At"
+        },
+        "status": {
+          "enum": [
+            "running",
+            "completed",
+            "failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "text_count": {
+          "default": 0,
+          "title": "Text Count",
+          "type": "integer"
+        },
+        "image_count": {
+          "default": 0,
+          "title": "Image Count",
+          "type": "integer"
+        },
+        "chunk_count": {
+          "default": 0,
+          "title": "Chunk Count",
+          "type": "integer"
+        },
+        "reference_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reference Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "task_id",
+        "revision_id",
+        "profile_id",
+        "provider",
+        "model",
+        "started_at",
+        "status"
+      ],
+      "title": "RunMeta",
+      "type": "object"
+    },
+    "SourceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "page": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page"
+        },
+        "slide": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Slide"
+        },
+        "section": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Section"
+        },
+        "paragraph": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Paragraph"
+        },
+        "line_start": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Line Start"
+        },
+        "line_end": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Line End"
+        },
+        "bbox": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bbox"
+        },
+        "coordinate_space": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Coordinate Space"
+        },
+        "part": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Part"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "title": "SourceRef",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "meta": {
+      "$ref": "#/$defs/RunMeta"
+    },
+    "review": {
+      "additionalProperties": true,
+      "title": "Review",
+      "type": "object"
+    },
+    "issues": {
+      "items": {
+        "$ref": "#/$defs/Issue"
+      },
+      "title": "Issues",
+      "type": "array"
+    },
+    "total_score": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Total Score"
+    }
+  },
+  "required": [
+    "meta",
+    "review",
+    "issues",
+    "total_score"
+  ],
+  "title": "ReviewResult",
+  "type": "object"
+}

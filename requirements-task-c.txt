@@ -1,0 +1,4 @@
+-r requirements-task-b.txt
+pydantic>=2.10,<3
+httpx>=0.28,<1
+keyring>=25,<26

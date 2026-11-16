@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]+-v[1-9][0-9]*$"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "material_type": {
+      "enum": [
+        "academic_paper",
+        "competition_proposal",
+        "ppt_defense"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dimensions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "weight": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "criteria": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "weight",
+          "criteria"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "format_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "handler": {
+            "type": "string",
+            "minLength": 1
+          },
+          "formats": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "docx",
+                "pptx",
+                "pdf",
+                "txt",
+                "markdown"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "severity": {
+            "enum": [
+              "error",
+              "warning",
+              "advice"
+            ]
+          },
+          "params": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "handler",
+          "formats",
+          "severity",
+          "params"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "knowledge_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "material_type",
+    "title",
+    "scope",
+    "dimensions",
+    "format_rules",
+    "output_schema",
+    "knowledge_refs"
+  ],
+  "additionalProperties": false
+}

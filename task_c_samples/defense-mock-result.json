@@ -1,0 +1,169 @@
+{
+  "result": {
+    "schema_version": "1.0",
+    "meta": {
+      "task_id": "defense",
+      "revision_id": "synthetic-r1",
+      "profile_id": "ppt-defense-v1",
+      "profile_version": 1,
+      "skill_id": "ppt-defense-review",
+      "skill_version": 1,
+      "provider": "mock",
+      "model": "wensai-mock-v1",
+      "started_at": "2026-11-16T14:42:14.848856Z",
+      "finished_at": "2026-11-16T14:42:14.865999Z",
+      "status": "completed",
+      "text_count": 1,
+      "image_count": 0,
+      "chunk_count": 1,
+      "reference_ids": [
+        "case-rm-pacing",
+        "cicsic-2025-rules"
+      ]
+    },
+    "review": {
+      "profile_id": "ppt-defense-v1",
+      "summary": "Mock：固定教学样例，仅供验收。 1/5 个维度有证据，发现 1 条去重问题。",
+      "dimensions": [
+        {
+          "id": "logic",
+          "status": "insufficient_evidence",
+          "score": null,
+          "rationale": "已确认且成功评审的范围内无可引用证据。",
+          "evidence": [],
+          "suggestions": []
+        },
+        {
+          "id": "density",
+          "status": "insufficient_evidence",
+          "score": null,
+          "rationale": "已确认且成功评审的范围内无可引用证据。",
+          "evidence": [],
+          "suggestions": []
+        },
+        {
+          "id": "hierarchy",
+          "status": "insufficient_evidence",
+          "score": null,
+          "rationale": "已确认且成功评审的范围内无可引用证据。",
+          "evidence": [],
+          "suggestions": []
+        },
+        {
+          "id": "readability",
+          "status": "insufficient_evidence",
+          "score": null,
+          "rationale": "已确认且成功评审的范围内无可引用证据。",
+          "evidence": [],
+          "suggestions": []
+        },
+        {
+          "id": "pacing",
+          "status": "evaluated",
+          "score": 3,
+          "rationale": "任务 C 的固定教学样例命中。",
+          "evidence": [
+            {
+              "block_id": "pptx/slide/2/shape/3/p/1",
+              "source": {
+                "path": "pptx/slide/2/shape/3/p/1",
+                "page": null,
+                "slide": 2,
+                "section": null,
+                "paragraph": 1,
+                "line_start": null,
+                "line_end": null,
+                "bbox": [
+                  72.0,
+                  144.0,
+                  648.0,
+                  216.0
+                ],
+                "coordinate_space": "slide_pt",
+                "part": "ppt/slides/slide2.xml"
+              },
+              "excerpt": "答辩限时5分钟，本页计划讲6分钟"
+            }
+          ],
+          "suggestions": [
+            "将本页口述压缩到45秒，为验证结果和问答预留时间。"
+          ]
+        }
+      ],
+      "priority_actions": [
+        {
+          "priority": "medium",
+          "action": "将本页口述压缩到45秒，为验证结果和问答预留时间。",
+          "block_id": "pptx/slide/2/shape/3/p/1"
+        }
+      ]
+    },
+    "issues": [
+      {
+        "id": "issue-b6980087090bde82d3d51d4e",
+        "location": {
+          "block_id": "pptx/slide/2/shape/3/p/1",
+          "source": {
+            "path": "pptx/slide/2/shape/3/p/1",
+            "page": null,
+            "slide": 2,
+            "section": null,
+            "paragraph": 1,
+            "line_start": null,
+            "line_end": null,
+            "bbox": [
+              72.0,
+              144.0,
+              648.0,
+              216.0
+            ],
+            "coordinate_space": "slide_pt",
+            "part": "ppt/slides/slide2.xml"
+          },
+          "char_start": 0,
+          "char_end": 16
+        },
+        "severity": "medium",
+        "criterion": "pacing",
+        "criterion_name": "答辩节奏",
+        "standard_index": 0,
+        "review_standard": "结合目标时长、页间转场和演示段落判断",
+        "evidence": {
+          "kind": "text",
+          "quote": "答辩限时5分钟，本页计划讲6分钟",
+          "image_sha256": null
+        },
+        "suggestion": "将本页口述压缩到45秒，为验证结果和问答预留时间。"
+      }
+    ],
+    "total_score": null
+  },
+  "audit": [
+    {
+      "task_id": "defense",
+      "profile_id": "ppt-defense-v1",
+      "profile_version": 1,
+      "skill_id": "ppt-defense-review",
+      "skill_version": 1,
+      "model": "wensai-mock-v1",
+      "chunk": 1,
+      "attempt": 1,
+      "request_time": "2026-11-16T14:42:14.865999Z",
+      "duration_ms": 0,
+      "status": "completed",
+      "error_code": null,
+      "http_status": null,
+      "input_bytes": 3524,
+      "image_count": 0
+    }
+  ],
+  "edit_example": {
+    "task_id": "defense",
+    "revision_id": "synthetic-r1",
+    "issue_id": "issue-b6980087090bde82d3d51d4e",
+    "version": 1,
+    "previous": "将本页口述压缩到45秒，为验证结果和问答预留时间。",
+    "suggestion": "加入明确、可复核的验收步骤。"
+  },
+  "original_unchanged": true
+}

@@ -1,0 +1,142 @@
+{
+  "$defs": {
+    "Approval": {
+      "additionalProperties": false,
+      "properties": {
+        "text_digest": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Text Digest",
+          "type": "string"
+        },
+        "image_digest": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Image Digest"
+        }
+      },
+      "required": [
+        "text_digest"
+      ],
+      "title": "Approval",
+      "type": "object"
+    },
+    "Selection": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "items": {
+            "$ref": "#/$defs/TextSlice"
+          },
+          "maxItems": 512,
+          "minItems": 1,
+          "title": "Text",
+          "type": "array"
+        },
+        "images": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 4,
+          "title": "Images",
+          "type": "array"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "Selection",
+      "type": "object"
+    },
+    "TextSlice": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Block Id",
+          "type": "string"
+        },
+        "start": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        },
+        "end": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        }
+      },
+      "required": [
+        "block_id"
+      ],
+      "title": "TextSlice",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "task_id": {
+      "pattern": "^[A-Za-z0-9_.:-]{1,100}$",
+      "title": "Task Id",
+      "type": "string"
+    },
+    "revision_id": {
+      "pattern": "^[A-Za-z0-9_.:-]{1,100}$",
+      "title": "Revision Id",
+      "type": "string"
+    },
+    "profile_id": {
+      "pattern": "^[A-Za-z0-9_.:-]{1,100}$",
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "document": {
+      "additionalProperties": true,
+      "title": "Document",
+      "type": "object"
+    },
+    "selection": {
+      "$ref": "#/$defs/Selection"
+    },
+    "approval": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Approval"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "task_id",
+    "revision_id",
+    "profile_id",
+    "document",
+    "selection"
+  ],
+  "title": "TaskInput",
+  "type": "object"
+}

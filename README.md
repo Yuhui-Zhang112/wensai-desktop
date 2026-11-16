@@ -4,6 +4,10 @@ WenSai Backend 是问赛的业务控制面。它负责认证、工作区、论�
 
 Backend 不直接运行 Hermes，不直接调用 ACP，不直接运行官方 CubeSandbox。所有 Agent 执行都通过 AgentSDK。
 
+## 任务 B 和任务 C
+
+本地分支 task-bc 包含任务 B 的文件解析、格式规则、评审配置与知识库，以及任务 C 的本地评审 Agent、Mock 和 DeepSeek 客户端。接入方式、样例与验收命令见 [任务 B 和 C 使用说明](TASK_BC_README.md)。
+
 ## 技术栈
 
 | 层 | 技术 |

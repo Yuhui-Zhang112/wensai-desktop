@@ -1,0 +1,80 @@
+{
+  "profile_id": "competition-proposal-v1",
+  "summary": "自编测试数据；仅演示 C 的接口。",
+  "dimensions": [
+    {
+      "id": "objective",
+      "status": "evaluated",
+      "score": 7,
+      "rationale": "目标给出了可核查的偏差阈值，但未说明计算方式。",
+      "evidence": [
+        {
+          "block_id": "docx/body/p/6",
+          "source": {
+            "path": "docx/body/p/6",
+            "page": null,
+            "slide": null,
+            "section": 1,
+            "paragraph": 6,
+            "line_start": null,
+            "line_end": null,
+            "bbox": null,
+            "coordinate_space": null,
+            "part": "word/document.xml"
+          },
+          "excerpt": "在十次模拟降雨中测量水量，平均测量偏差不超过 5%。"
+        }
+      ],
+      "suggestions": [
+        "定义平均测量偏差的计算公式与基准值。"
+      ]
+    },
+    {
+      "id": "solution",
+      "status": "insufficient_evidence",
+      "score": null,
+      "rationale": "本例只演示目标维度的返回字段。",
+      "evidence": [],
+      "suggestions": []
+    },
+    {
+      "id": "schedule",
+      "status": "insufficient_evidence",
+      "score": null,
+      "rationale": "本例只演示目标维度的返回字段。",
+      "evidence": [],
+      "suggestions": []
+    },
+    {
+      "id": "budget",
+      "status": "insufficient_evidence",
+      "score": null,
+      "rationale": "本例只演示目标维度的返回字段。",
+      "evidence": [],
+      "suggestions": []
+    },
+    {
+      "id": "resources",
+      "status": "insufficient_evidence",
+      "score": null,
+      "rationale": "本例只演示目标维度的返回字段。",
+      "evidence": [],
+      "suggestions": []
+    },
+    {
+      "id": "risk",
+      "status": "insufficient_evidence",
+      "score": null,
+      "rationale": "本例只演示目标维度的返回字段。",
+      "evidence": [],
+      "suggestions": []
+    }
+  ],
+  "priority_actions": [
+    {
+      "priority": "high",
+      "action": "补充误差计算公式。",
+      "block_id": "docx/body/p/6"
+    }
+  ]
+}

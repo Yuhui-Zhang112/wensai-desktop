@@ -1,0 +1,9 @@
+# Preserve the bytes used by the document and image fixtures.
+task_b_samples/*.docx binary
+task_b_samples/*.pptx binary
+task_b_samples/*.pdf binary
+task_b_samples/images/*.png binary
+task_b_samples/material.txt -text whitespace=cr-at-eol
+task_c_samples/*.docx binary
+task_c_samples/*.pptx binary
+task_c_samples/*.pdf binary

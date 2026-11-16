@@ -1,0 +1,439 @@
+{
+  "id": "academic-paper-review",
+  "version": 1,
+  "material_type": "academic_paper",
+  "inputs": [
+    "approved_text",
+    "separately_approved_PPT_images",
+    "profile.dimensions",
+    "retrieved_reference_notes"
+  ],
+  "steps": [
+    "找出研究问题，与既有方案比较并判断新增贡献。",
+    "核对方法、样本、对照、采样范围及可复现信息。",
+    "把数据和结论一一对应；检查引用和表达规范，不推断实际字体或页边距。"
+  ],
+  "scoring": "0–2：证据显示严重缺陷；3–5：主要环节缺失；6–8：基本成立且有明确改进处；9–10：证据充分。没有直接证据时省略该维度。",
+  "criterion_ids": [
+    "innovation",
+    "methodology",
+    "evidence",
+    "writing_norms"
+  ],
+  "citations": "只引用本段 ref；文字引用连续原句，图片引用对象并把 quote 填 null。",
+  "standards": [
+    {
+      "id": "innovation",
+      "name": "创新性",
+      "weight": 25,
+      "criteria": [
+        "指出研究问题、与既有工作的差异及可核查贡献",
+        "区分宣称、复现和新增结果"
+      ]
+    },
+    {
+      "id": "methodology",
+      "name": "研究方法",
+      "weight": 30,
+      "criteria": [
+        "说明数据、实验设计、对照组和可复现过程",
+        "识别假设、样本与测量误差"
+      ]
+    },
+    {
+      "id": "evidence",
+      "name": "数据与结论",
+      "weight": 30,
+      "criteria": [
+        "核对结果、图表、指标和结论是否对应",
+        "从正文证据判断结论的适用范围与限制"
+      ]
+    },
+    {
+      "id": "writing_norms",
+      "name": "规范性",
+      "weight": 15,
+      "criteria": [
+        "检查引用、论证结构和术语一致性",
+        "硬性格式以确定性检查为准"
+      ]
+    }
+  ],
+  "chunk_output_schema": {
+    "$defs": {
+      "ModelDimension": {
+        "additionalProperties": false,
+        "properties": {
+          "criterion": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Criterion",
+            "type": "string"
+          },
+          "score": {
+            "maximum": 10,
+            "minimum": 0,
+            "title": "Score",
+            "type": "integer"
+          },
+          "rationale": {
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Rationale",
+            "type": "string"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/$defs/ModelEvidence"
+            },
+            "maxItems": 3,
+            "minItems": 1,
+            "title": "Evidence",
+            "type": "array"
+          }
+        },
+        "required": [
+          "criterion",
+          "score",
+          "rationale",
+          "evidence"
+        ],
+        "title": "ModelDimension",
+        "type": "object"
+      },
+      "ModelEvidence": {
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "pattern": "^[ti][0-9]+$",
+            "title": "Ref",
+            "type": "string"
+          },
+          "quote": {
+            "anyOf": [
+              {
+                "maxLength": 400,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quote"
+          }
+        },
+        "required": [
+          "ref",
+          "quote"
+        ],
+        "title": "ModelEvidence",
+        "type": "object"
+      },
+      "ModelIssue": {
+        "additionalProperties": false,
+        "properties": {
+          "criterion": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Criterion",
+            "type": "string"
+          },
+          "standard_index": {
+            "maximum": 20,
+            "minimum": 0,
+            "title": "Standard Index",
+            "type": "integer"
+          },
+          "impact": {
+            "enum": [
+              "invalidates",
+              "weakens",
+              "presentation"
+            ],
+            "title": "Impact",
+            "type": "string"
+          },
+          "evidence": {
+            "$ref": "#/$defs/ModelEvidence"
+          },
+          "suggestion": {
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Suggestion",
+            "type": "string"
+          }
+        },
+        "required": [
+          "criterion",
+          "standard_index",
+          "impact",
+          "evidence",
+          "suggestion"
+        ],
+        "title": "ModelIssue",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "dimensions": {
+        "items": {
+          "$ref": "#/$defs/ModelDimension"
+        },
+        "maxItems": 6,
+        "title": "Dimensions",
+        "type": "array"
+      },
+      "issues": {
+        "items": {
+          "$ref": "#/$defs/ModelIssue"
+        },
+        "maxItems": 6,
+        "title": "Issues",
+        "type": "array"
+      }
+    },
+    "required": [
+      "dimensions",
+      "issues"
+    ],
+    "title": "ChunkReview",
+    "type": "object"
+  },
+  "merged_review_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "academic-paper-v1 评审结果",
+    "type": "object",
+    "properties": {
+      "profile_id": {
+        "const": "academic-paper-v1"
+      },
+      "summary": {
+        "type": "string",
+        "minLength": 1
+      },
+      "dimensions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "enum": [
+                "innovation",
+                "methodology",
+                "evidence",
+                "writing_norms"
+              ]
+            },
+            "status": {
+              "enum": [
+                "evaluated",
+                "insufficient_evidence"
+              ]
+            },
+            "score": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 10
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "block_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "source": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "page": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "slide": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "section": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "paragraph": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "line_start": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "line_end": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "part": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "bbox": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": "number"
+                        },
+                        "minItems": 4,
+                        "maxItems": 4
+                      },
+                      "coordinate_space": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "excerpt": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "block_id",
+                  "source",
+                  "excerpt"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "suggestions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "required": [
+            "id",
+            "status",
+            "score",
+            "rationale",
+            "evidence",
+            "suggestions"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "evaluated"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "score": {
+                    "type": "integer"
+                  },
+                  "evidence": {
+                    "minItems": 1
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "score": {
+                    "type": "null"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "minItems": 4,
+        "maxItems": 4
+      },
+      "priority_actions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "priority": {
+              "enum": [
+                "high",
+                "medium",
+                "low"
+              ]
+            },
+            "action": {
+              "type": "string",
+              "minLength": 1
+            },
+            "block_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "priority",
+            "action",
+            "block_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "profile_id",
+      "summary",
+      "dimensions",
+      "priority_actions"
+    ],
+    "additionalProperties": false
+  }
+}

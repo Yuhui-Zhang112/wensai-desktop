@@ -1,0 +1,438 @@
+{
+  "schema_version": "1.0",
+  "items": [
+    {
+      "id": "cicsic-2025-rules",
+      "kind": "official_reference",
+      "competition": "中国国际大学生创新大赛",
+      "year": 2025,
+      "material_types": [
+        "competition_proposal",
+        "ppt_defense"
+      ],
+      "dimensions": [
+        "objective",
+        "solution",
+        "logic",
+        "pacing"
+      ],
+      "source": {
+        "title": "关于公布中国国际大学生创新大赛（2025）评审规则的通知",
+        "publisher": "全国大学生创业服务网",
+        "url": "https://cy.ncss.cn/information/2c93f4c696aa01a10196eca57202006a",
+        "locator": "通知及评审规则附件，按赛道查阅",
+        "verified_on": "2026-11-16"
+      },
+      "authorization": {
+        "status": "public_link_only",
+        "contains_personal_data": false,
+        "scope": "记录公开出处与自行概述，不复制附件或参赛作品。"
+      },
+      "note": "立项、参赛和答辩标准应区分赛道与组别；通用 profile 的权重并非该规则的官方权重。"
+    },
+    {
+      "id": "challenge-cup-2019-charter",
+      "kind": "official_reference",
+      "competition": "挑战杯全国大学生课外学术科技作品竞赛",
+      "year": 2019,
+      "material_types": [
+        "academic_paper",
+        "competition_proposal"
+      ],
+      "dimensions": [
+        "innovation",
+        "methodology",
+        "evidence"
+      ],
+      "source": {
+        "title": "第十六届挑战杯竞赛章程",
+        "publisher": "共青团中央",
+        "url": "https://www.gqt.org.cn/documents/zqlf/201904/P020190410640160310160.pdf",
+        "locator": "第四条",
+        "verified_on": "2026-11-16"
+      },
+      "authorization": {
+        "status": "public_link_only",
+        "contains_personal_data": false,
+        "scope": "记录公开出处与自行概述，不复制附件或参赛作品。"
+      },
+      "note": "该届章程区分自然科学论文、社科调查报告/论文与科技发明制作；引用时确认届次。"
+    },
+    {
+      "id": "dachuang-2019-policy",
+      "kind": "official_reference",
+      "competition": "国家级大学生创新创业训练计划（大创）",
+      "year": 2019,
+      "material_types": [
+        "competition_proposal",
+        "academic_paper"
+      ],
+      "dimensions": [
+        "objective",
+        "solution",
+        "schedule",
+        "budget",
+        "resources",
+        "risk"
+      ],
+      "source": {
+        "title": "国家级大学生创新创业训练计划管理办法",
+        "publisher": "教育部",
+        "url": "https://www.moe.gov.cn/srcsite/A08/s5672/201907/t20190724_392132.html",
+        "locator": "第四条、第三章及第四章",
+        "verified_on": "2026-11-16"
+      },
+      "authorization": {
+        "status": "public_link_only",
+        "contains_personal_data": false,
+        "scope": "记录公开出处与自行概述，不复制附件或参赛作品。"
+      },
+      "note": "区分创新训练、创业训练与创业实践；管理办法不提供各校的具体评分权重，需查当地申报通知。"
+    },
+    {
+      "id": "mcm-2026-format",
+      "kind": "official_reference",
+      "competition": "全国大学生数学建模竞赛",
+      "year": 2026,
+      "material_types": [
+        "academic_paper"
+      ],
+      "dimensions": [
+        "writing_norms",
+        "evidence"
+      ],
+      "source": {
+        "title": "全国大学生数学建模竞赛论文格式规范（2026年修订稿）",
+        "publisher": "全国大学生数学建模竞赛组委会",
+        "url": "https://www.mcm.edu.cn/html_cn/node/4cd596519c9eb9fbd866398f6df0caa3.html",
+        "locator": "第一至四条、第十至十一条",
+        "verified_on": "2026-11-16"
+      },
+      "authorization": {
+        "status": "public_link_only",
+        "contains_personal_data": false,
+        "scope": "记录公开出处与自行概述，不复制附件或参赛作品。"
+      },
+      "note": "纸质、电子论文及支撑材料适用条件不同；电子版首页为摘要专用页，不能以通用页数代替该赛规则。"
+    },
+    {
+      "id": "robomaster-2025-review",
+      "kind": "official_reference",
+      "competition": "RoboMaster 机甲大师高校系列赛",
+      "year": 2025,
+      "material_types": [
+        "competition_proposal",
+        "ppt_defense"
+      ],
+      "dimensions": [
+        "schedule",
+        "evidence",
+        "logic",
+        "pacing"
+      ],
+      "source": {
+        "title": "RoboMaster 2025机甲大师高校系列赛技术评审进度考核细则",
+        "publisher": "RoboMaster 组委会",
+        "url": "https://www.robomaster.com/zh-CN/resource/pages/announcement/1772/",
+        "locator": "RMUC 进度考核说明",
+        "verified_on": "2026-11-16"
+      },
+      "authorization": {
+        "status": "public_link_only",
+        "contains_personal_data": false,
+        "scope": "记录公开出处与自行概述，不复制附件或参赛作品。"
+      },
+      "note": "该届技术评审关注按模板呈现关键流程和数据；素材与填写记录需要对应。"
+    },
+    {
+      "id": "nuedc-2025-topics",
+      "kind": "official_reference",
+      "competition": "全国大学生电子设计竞赛",
+      "year": 2025,
+      "material_types": [
+        "competition_proposal",
+        "academic_paper"
+      ],
+      "dimensions": [
+        "solution",
+        "evidence",
+        "writing_norms"
+      ],
+      "source": {
+        "title": "关于公布TI杯2025年全国大学生电子设计竞赛（北京赛区）题目的通知",
+        "publisher": "北京市教育委员会",
+        "url": "https://jw.beijing.gov.cn/gjc/tzgg_15688/202507/t20250730_4162161.html",
+        "locator": "题目附件，按实际选题查阅",
+        "verified_on": "2026-11-16"
+      },
+      "authorization": {
+        "status": "public_link_only",
+        "contains_personal_data": false,
+        "scope": "记录公开出处与自行概述，不复制附件或参赛作品。"
+      },
+      "note": "设计报告及实物应按选题的功能、指标和测试条件逐项对应，不混用不同赛题的要求。"
+    },
+    {
+      "id": "dachuang-usc-2025-rubric",
+      "kind": "official_reference",
+      "competition": "国家级大学生创新创业训练计划（大创）",
+      "year": 2025,
+      "material_types": ["competition_proposal"],
+      "dimensions": ["objective", "solution", "schedule"],
+      "source": {
+        "title": "南华大学关于开展2025年度大学生创新创业训练计划项目申报、中期检查与结题工作的通知",
+        "publisher": "南华大学创新创业教育与实践中心",
+        "url": "https://gcxl.usc.edu.cn/info/1005/2489.htm",
+        "locator": "附件：立项评分标准",
+        "verified_on": "2026-11-16"
+      },
+      "authorization": {
+        "status": "public_link_only",
+        "contains_personal_data": false,
+        "scope": "只登记公开通知和评分附件入口，不收录通知中的联系人或附件全文。"
+      },
+      "note": "该评分标准适用于该校该年度立项工作；不能代替其他学校的当年申报要求。"
+    },
+    {
+      "id": "case-cicsic-objective",
+      "kind": "instructional_case",
+      "competition": "中国国际大学生创新大赛",
+      "year": 2025,
+      "material_types": [
+        "competition_proposal",
+        "ppt_defense"
+      ],
+      "dimensions": [
+        "objective",
+        "solution"
+      ],
+      "source": {
+        "title": "任务 B 自编教学案例 case-cicsic-objective",
+        "path": "instructional_cases/case-cicsic-objective.md",
+        "locator": "第 3–4 行"
+      },
+      "authorization": {
+        "status": "original_demo",
+        "contains_personal_data": false,
+        "scope": "自编虚构内容，可随任务 B 分发。"
+      },
+      "case": {
+        "classification": "教学样例；评阅意见为模拟，非专家签发；年份为所引用规则的适用年份。",
+        "original_text": "我们要做一套校园失物招领系统，让所有用户更方便。",
+        "issue_location": {
+          "filename": "instructional_cases/case-cicsic-objective.md",
+          "source": {
+            "path": "markdown/lines/3/4",
+            "line_start": 3,
+            "line_end": 4
+          }
+        },
+        "criteria_ref": "cicsic-2025-rules",
+        "assessment_standard": "说明服务对象、识别到的实际问题和可核查的目标；数值为教学示例。",
+        "expert_opinion": "目标使用了主观描述，无法对应后续验证。",
+        "opinion_origin": "simulated",
+        "revision_suggestion": "限定一个校区的认领场景，给出原流程用时基线和试点成功率测量方法。"
+      }
+    },
+    {
+      "id": "case-challenge-method",
+      "kind": "instructional_case",
+      "competition": "挑战杯全国大学生课外学术科技作品竞赛",
+      "year": 2019,
+      "material_types": [
+        "academic_paper"
+      ],
+      "dimensions": [
+        "methodology",
+        "evidence"
+      ],
+      "source": {
+        "title": "任务 B 自编教学案例 case-challenge-method",
+        "path": "instructional_cases/case-challenge-method.md",
+        "locator": "第 3–4 行"
+      },
+      "authorization": {
+        "status": "original_demo",
+        "contains_personal_data": false,
+        "scope": "自编虚构内容，可随任务 B 分发。"
+      },
+      "case": {
+        "classification": "教学样例；评阅意见为模拟，非专家签发；年份为所引用规则的适用年份。",
+        "original_text": "本小组只在午间记录一处图书馆入口的数据，据此认为全校全天都比较拥挤。",
+        "issue_location": {
+          "filename": "instructional_cases/case-challenge-method.md",
+          "source": {
+            "path": "markdown/lines/3/4",
+            "line_start": 3,
+            "line_end": 4
+          }
+        },
+        "criteria_ref": "challenge-cup-2019-charter",
+        "assessment_standard": "采样范围与外推结论应一致。",
+        "expert_opinion": "抽样时间和地点过于集中，数据只支持该入口的午间情形。",
+        "opinion_origin": "simulated",
+        "revision_suggestion": "补充时段与入口的分层采样；做不到时缩小结论适用范围。"
+      }
+    },
+    {
+      "id": "case-dachuang-budget",
+      "kind": "instructional_case",
+      "competition": "国家级大学生创新创业训练计划（大创）",
+      "year": 2019,
+      "material_types": [
+        "competition_proposal"
+      ],
+      "dimensions": [
+        "budget",
+        "schedule"
+      ],
+      "source": {
+        "title": "任务 B 自编教学案例 case-dachuang-budget",
+        "path": "instructional_cases/case-dachuang-budget.md",
+        "locator": "第 3–4 行"
+      },
+      "authorization": {
+        "status": "original_demo",
+        "contains_personal_data": false,
+        "scope": "自编虚构内容，可随任务 B 分发。"
+      },
+      "case": {
+        "classification": "教学样例；评阅意见为模拟，非专家签发；年份为所引用规则的适用年份。",
+        "original_text": "计划第 2 月完成访谈和原型。申请经费 3000 元，不列各项金额。",
+        "issue_location": {
+          "filename": "instructional_cases/case-dachuang-budget.md",
+          "source": {
+            "path": "markdown/lines/3/4",
+            "line_start": 3,
+            "line_end": 4
+          }
+        },
+        "criteria_ref": "dachuang-2019-policy",
+        "assessment_standard": "分项说明单价、数量和用途；结合学校经费规定复核。",
+        "expert_opinion": "总额无法复核，也无法判断款项是否支持关键里程碑。",
+        "opinion_origin": "simulated",
+        "revision_suggestion": "用表列出每项数量、单价、总价和对应阶段，并注明估算依据。"
+      }
+    },
+    {
+      "id": "case-mcm-abstract",
+      "kind": "instructional_case",
+      "competition": "全国大学生数学建模竞赛",
+      "year": 2026,
+      "material_types": [
+        "academic_paper"
+      ],
+      "dimensions": [
+        "writing_norms",
+        "evidence"
+      ],
+      "source": {
+        "title": "任务 B 自编教学案例 case-mcm-abstract",
+        "path": "instructional_cases/case-mcm-abstract.md",
+        "locator": "第 3–4 行"
+      },
+      "authorization": {
+        "status": "original_demo",
+        "contains_personal_data": false,
+        "scope": "自编虚构内容，可随任务 B 分发。"
+      },
+      "case": {
+        "classification": "教学样例；评阅意见为模拟，非专家签发；年份为所引用规则的适用年份。",
+        "original_text": "电子版的第一页准备用作承诺书，摘要安排在第二页。",
+        "issue_location": {
+          "filename": "instructional_cases/case-mcm-abstract.md",
+          "source": {
+            "path": "markdown/lines/3/4",
+            "line_start": 3,
+            "line_end": 4
+          }
+        },
+        "criteria_ref": "mcm-2026-format",
+        "assessment_standard": "按 2026 年电子版论文第十条核对首页及专用页。",
+        "expert_opinion": "把纸质提交的页面安排误用于电子版。",
+        "opinion_origin": "simulated",
+        "revision_suggestion": "电子版以摘要专用页开头，检查电子版和纸质版各自的规范。"
+      }
+    },
+    {
+      "id": "case-rm-pacing",
+      "kind": "instructional_case",
+      "competition": "RoboMaster 机甲大师高校系列赛",
+      "year": 2025,
+      "material_types": [
+        "ppt_defense"
+      ],
+      "dimensions": [
+        "logic",
+        "pacing"
+      ],
+      "source": {
+        "title": "任务 B 自编教学案例 case-rm-pacing",
+        "path": "instructional_cases/case-rm-pacing.md",
+        "locator": "第 3–4 行"
+      },
+      "authorization": {
+        "status": "original_demo",
+        "contains_personal_data": false,
+        "scope": "自编虚构内容，可随任务 B 分发。"
+      },
+      "case": {
+        "classification": "教学样例；评阅意见为模拟，非专家签发；年份为所引用规则的适用年份。",
+        "original_text": "在阶段演示中，前几页都是宣传内容，最后才展示关键试验结果。",
+        "issue_location": {
+          "filename": "instructional_cases/case-rm-pacing.md",
+          "source": {
+            "path": "markdown/lines/3/4",
+            "line_start": 3,
+            "line_end": 4
+          }
+        },
+        "criteria_ref": "robomaster-2025-review",
+        "assessment_standard": "演示顺序应方便对照场景、关键流程、数据和记录；节奏建议属于教学示例。",
+        "expert_opinion": "观众可能看完宣传页仍找不到验证任务对应的证据。",
+        "opinion_origin": "simulated",
+        "revision_suggestion": "先说考核目标，演示流程后立即显示数据和记录编号，为失败场景留出说明时间。"
+      }
+    },
+    {
+      "id": "case-nuedc-test",
+      "kind": "instructional_case",
+      "competition": "全国大学生电子设计竞赛",
+      "year": 2025,
+      "material_types": [
+        "competition_proposal"
+      ],
+      "dimensions": [
+        "solution",
+        "evidence"
+      ],
+      "source": {
+        "title": "任务 B 自编教学案例 case-nuedc-test",
+        "path": "instructional_cases/case-nuedc-test.md",
+        "locator": "第 3–4 行"
+      },
+      "authorization": {
+        "status": "original_demo",
+        "contains_personal_data": false,
+        "scope": "自编虚构内容，可随任务 B 分发。"
+      },
+      "case": {
+        "classification": "教学样例；评阅意见为模拟，非专家签发；年份为所引用规则的适用年份。",
+        "original_text": "测试结果：输出正常。测试条件、仪器、指标和读数略。",
+        "issue_location": {
+          "filename": "instructional_cases/case-nuedc-test.md",
+          "source": {
+            "path": "markdown/lines/3/4",
+            "line_start": 3,
+            "line_end": 4
+          }
+        },
+        "criteria_ref": "nuedc-2025-topics",
+        "assessment_standard": "报告测试记录能与具体赛题要求逐项对照。",
+        "expert_opinion": "“正常”不能替代测试数据，也无法重建测试。",
+        "opinion_origin": "simulated",
+        "revision_suggestion": "用指标、测试条件、实测值和是否达标四列呈现，并标注测量仪器。"
+      }
+    }
+  ]
+}

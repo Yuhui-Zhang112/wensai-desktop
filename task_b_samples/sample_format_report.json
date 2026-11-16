@@ -1,0 +1,380 @@
+{
+  "schema_version": "1.0",
+  "profile_id": "competition-proposal-v1",
+  "format": "docx",
+  "summary": {
+    "pass": 5,
+    "fail": 11,
+    "needs_review": 0,
+    "not_applicable": 0
+  },
+  "findings": [
+    {
+      "rule_id": "word-fonts",
+      "severity": "error",
+      "status": "fail",
+      "message": "正文含不符合要求的字体。",
+      "source": {
+        "path": "docx/body/p/3",
+        "page": null,
+        "slide": null,
+        "section": 1,
+        "paragraph": 3,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null,
+        "coordinate_space": null,
+        "part": "word/document.xml"
+      },
+      "observed": {
+        "mismatches": [
+          {
+            "run": 1,
+            "axis": "eastAsia",
+            "font": "黑体"
+          }
+        ],
+        "unresolved": []
+      },
+      "expected": {
+        "eastAsia": "宋体",
+        "latin": "Times New Roman"
+      },
+      "fix": {
+        "operation": "word_fonts",
+        "path": "docx/body/p/3"
+      }
+    },
+    {
+      "rule_id": "word-size",
+      "severity": "error",
+      "status": "fail",
+      "message": "正文字号与规范不一致。",
+      "source": {
+        "path": "docx/body/p/3",
+        "page": null,
+        "slide": null,
+        "section": 1,
+        "paragraph": 3,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null,
+        "coordinate_space": null,
+        "part": "word/document.xml"
+      },
+      "observed": {
+        "mismatches_pt": [
+          9.0
+        ],
+        "unresolved": false
+      },
+      "expected": {
+        "pt": 12
+      },
+      "fix": {
+        "operation": "word_size",
+        "path": "docx/body/p/3"
+      }
+    },
+    {
+      "rule_id": "word-spacing",
+      "severity": "error",
+      "status": "fail",
+      "message": "正文行距与规范不一致。",
+      "source": {
+        "path": "docx/body/p/3",
+        "page": null,
+        "slide": null,
+        "section": 1,
+        "paragraph": 3,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null,
+        "coordinate_space": null,
+        "part": "word/document.xml"
+      },
+      "observed": {
+        "kind": "auto",
+        "value": 1.0
+      },
+      "expected": {
+        "kind": "auto",
+        "value": 1.5
+      },
+      "fix": {
+        "operation": "word_spacing",
+        "path": "docx/body/p/3"
+      }
+    },
+    {
+      "rule_id": "word-margins",
+      "severity": "error",
+      "status": "fail",
+      "message": "节的页边距与规范不一致。",
+      "source": {
+        "path": "docx/section/1",
+        "page": null,
+        "slide": null,
+        "section": 1,
+        "paragraph": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null,
+        "coordinate_space": null,
+        "part": "word/document.xml"
+      },
+      "observed": {
+        "top": 2.54,
+        "bottom": 2.54,
+        "left": 1.4005,
+        "right": 2.54
+      },
+      "expected": {
+        "top": 2.54,
+        "bottom": 2.54,
+        "left": 2.54,
+        "right": 2.54
+      },
+      "fix": {
+        "operation": "word_margins",
+        "path": "docx/section/1"
+      }
+    },
+    {
+      "rule_id": "headings",
+      "severity": "error",
+      "status": "fail",
+      "message": "标题层级跳级。",
+      "source": {
+        "path": "docx/body/p/4",
+        "page": null,
+        "slide": null,
+        "section": 1,
+        "paragraph": 4,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null,
+        "coordinate_space": null,
+        "part": "word/document.xml"
+      },
+      "observed": 3,
+      "expected": {
+        "max_next_level": 2
+      },
+      "fix": null
+    },
+    {
+      "rule_id": "captions",
+      "severity": "error",
+      "status": "fail",
+      "message": "在图下方未找到独立可匹配的编号题注。",
+      "source": {
+        "path": "docx/body/p/10/image/1",
+        "page": null,
+        "slide": null,
+        "section": 1,
+        "paragraph": 10,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null,
+        "coordinate_space": null,
+        "part": "word/document.xml"
+      },
+      "observed": null,
+      "expected": null,
+      "fix": null
+    },
+    {
+      "rule_id": "caption-numbers",
+      "severity": "warning",
+      "status": "fail",
+      "message": "图表题注编号重复。",
+      "source": {
+        "path": "docx/body/p/12",
+        "page": null,
+        "slide": null,
+        "section": 1,
+        "paragraph": 12,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null,
+        "coordinate_space": null,
+        "part": "word/document.xml"
+      },
+      "observed": "1",
+      "expected": null,
+      "fix": null
+    },
+    {
+      "rule_id": "proposal-toc",
+      "severity": "warning",
+      "status": "fail",
+      "message": "未发现目录域或可识别的目录条目。",
+      "source": null,
+      "observed": null,
+      "expected": null,
+      "fix": null
+    },
+    {
+      "rule_id": "proposal-sections",
+      "severity": "error",
+      "status": "pass",
+      "message": "找到“项目目标”。",
+      "source": {
+        "path": "docx/body/p/2",
+        "page": null,
+        "slide": null,
+        "section": 1,
+        "paragraph": 2,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null,
+        "coordinate_space": null,
+        "part": "word/document.xml"
+      },
+      "observed": null,
+      "expected": [
+        "目标",
+        "项目目标",
+        "建设目标",
+        "研究目标"
+      ],
+      "fix": null
+    },
+    {
+      "rule_id": "proposal-sections",
+      "severity": "error",
+      "status": "pass",
+      "message": "找到“方案”。",
+      "source": {
+        "path": "docx/body/p/4",
+        "page": null,
+        "slide": null,
+        "section": 1,
+        "paragraph": 4,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null,
+        "coordinate_space": null,
+        "part": "word/document.xml"
+      },
+      "observed": null,
+      "expected": [
+        "方案",
+        "技术方案",
+        "技术路线",
+        "实施方案"
+      ],
+      "fix": null
+    },
+    {
+      "rule_id": "proposal-sections",
+      "severity": "error",
+      "status": "pass",
+      "message": "找到“进度”。",
+      "source": {
+        "path": "docx/body/p/6",
+        "page": null,
+        "slide": null,
+        "section": 1,
+        "paragraph": 6,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null,
+        "coordinate_space": null,
+        "part": "word/document.xml"
+      },
+      "observed": null,
+      "expected": [
+        "进度",
+        "进度安排",
+        "项目进度",
+        "实施计划",
+        "时间安排"
+      ],
+      "fix": null
+    },
+    {
+      "rule_id": "proposal-sections",
+      "severity": "error",
+      "status": "fail",
+      "message": "未找到可识别的“预算”标记。",
+      "source": null,
+      "observed": null,
+      "expected": [
+        "预算",
+        "经费预算",
+        "经费安排"
+      ],
+      "fix": null
+    },
+    {
+      "rule_id": "proposal-sections",
+      "severity": "error",
+      "status": "pass",
+      "message": "找到“资源”。",
+      "source": {
+        "path": "docx/body/p/8",
+        "page": null,
+        "slide": null,
+        "section": 1,
+        "paragraph": 8,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null,
+        "coordinate_space": null,
+        "part": "word/document.xml"
+      },
+      "observed": null,
+      "expected": [
+        "资源",
+        "资源条件",
+        "已有条件",
+        "团队与资源",
+        "团队分工"
+      ],
+      "fix": null
+    },
+    {
+      "rule_id": "proposal-sections",
+      "severity": "error",
+      "status": "fail",
+      "message": "未找到可识别的“风险”标记。",
+      "source": null,
+      "observed": null,
+      "expected": [
+        "风险",
+        "风险分析",
+        "风险与对策",
+        "风险与应对"
+      ],
+      "fix": null
+    },
+    {
+      "rule_id": "proposal-pages",
+      "severity": "warning",
+      "status": "fail",
+      "message": "页数或幻灯片数量超出此 profile 的范围。",
+      "source": null,
+      "observed": {
+        "pages": 35,
+        "origin": "caller_rendered"
+      },
+      "expected": {
+        "min": 1,
+        "max": 30
+      },
+      "fix": null
+    },
+    {
+      "rule_id": "proposal-submission",
+      "severity": "error",
+      "status": "pass",
+      "message": "文件格式和体积：未发现可判定的偏差。",
+      "source": null,
+      "observed": null,
+      "expected": null,
+      "fix": null
+    }
+  ]
+}

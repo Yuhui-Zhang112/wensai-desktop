@@ -1,0 +1,490 @@
+{
+  "id": "competition-proposal-v1",
+  "version": 1,
+  "material_type": "competition_proposal",
+  "title": "竞赛申报书与计划书评审",
+  "scope": "问赛首版示范规范，适合自查。不作为某场比赛或学校的官方要求；赛事资料须按竞赛、年份和赛道核对。",
+  "dimensions": [
+    {
+      "id": "objective",
+      "name": "目标",
+      "weight": 20,
+      "criteria": [
+        "说明需求来源、服务对象、项目边界和可量化的验收指标"
+      ]
+    },
+    {
+      "id": "solution",
+      "name": "方案",
+      "weight": 25,
+      "criteria": [
+        "技术路线可落地，有与现有方案的对比和验证计划"
+      ]
+    },
+    {
+      "id": "schedule",
+      "name": "进度",
+      "weight": 15,
+      "criteria": [
+        "给出阶段、责任人、依赖、交付物和验收节点"
+      ]
+    },
+    {
+      "id": "budget",
+      "name": "预算",
+      "weight": 15,
+      "criteria": [
+        "列出分项、数量、单价、总额和估算依据"
+      ]
+    },
+    {
+      "id": "resources",
+      "name": "资源",
+      "weight": 10,
+      "criteria": [
+        "说明团队分工、已有条件、协作资源和关键缺口"
+      ]
+    },
+    {
+      "id": "risk",
+      "name": "风险",
+      "weight": 15,
+      "criteria": [
+        "明确触发条件、影响、应对措施和备选方案"
+      ]
+    }
+  ],
+  "format_rules": [
+    {
+      "id": "word-fonts",
+      "title": "正文字体",
+      "handler": "word_fonts",
+      "formats": [
+        "docx"
+      ],
+      "severity": "error",
+      "params": {
+        "eastAsia": "宋体",
+        "latin": "Times New Roman"
+      }
+    },
+    {
+      "id": "word-size",
+      "title": "正文字号",
+      "handler": "word_size",
+      "formats": [
+        "docx"
+      ],
+      "severity": "error",
+      "params": {
+        "pt": 12
+      }
+    },
+    {
+      "id": "word-spacing",
+      "title": "正文行距",
+      "handler": "word_spacing",
+      "formats": [
+        "docx"
+      ],
+      "severity": "error",
+      "params": {
+        "kind": "auto",
+        "value": 1.5
+      }
+    },
+    {
+      "id": "word-margins",
+      "title": "页边距",
+      "handler": "word_margins",
+      "formats": [
+        "docx"
+      ],
+      "severity": "error",
+      "params": {
+        "top": 2.54,
+        "bottom": 2.54,
+        "left": 2.54,
+        "right": 2.54
+      }
+    },
+    {
+      "id": "headings",
+      "title": "标题层级",
+      "handler": "heading_hierarchy",
+      "formats": [
+        "docx",
+        "pdf",
+        "txt",
+        "markdown"
+      ],
+      "severity": "error",
+      "params": {}
+    },
+    {
+      "id": "captions",
+      "title": "图表题注位置",
+      "handler": "word_captions",
+      "formats": [
+        "docx"
+      ],
+      "severity": "error",
+      "params": {}
+    },
+    {
+      "id": "caption-numbers",
+      "title": "图表题注编号",
+      "handler": "caption_numbers",
+      "formats": [
+        "docx",
+        "pdf",
+        "txt",
+        "markdown"
+      ],
+      "severity": "warning",
+      "params": {}
+    },
+    {
+      "id": "proposal-toc",
+      "title": "目录与目录条目",
+      "handler": "toc",
+      "formats": [
+        "docx",
+        "pdf",
+        "txt",
+        "markdown"
+      ],
+      "severity": "warning",
+      "params": {}
+    },
+    {
+      "id": "proposal-sections",
+      "title": "计划书章节",
+      "handler": "sections",
+      "formats": [
+        "docx",
+        "pdf",
+        "txt",
+        "markdown"
+      ],
+      "severity": "error",
+      "params": {
+        "required": {
+          "项目目标": [
+            "目标",
+            "项目目标",
+            "建设目标",
+            "研究目标"
+          ],
+          "方案": [
+            "方案",
+            "技术方案",
+            "技术路线",
+            "实施方案"
+          ],
+          "进度": [
+            "进度",
+            "进度安排",
+            "项目进度",
+            "实施计划",
+            "时间安排"
+          ],
+          "预算": [
+            "预算",
+            "经费预算",
+            "经费安排"
+          ],
+          "资源": [
+            "资源",
+            "资源条件",
+            "已有条件",
+            "团队与资源",
+            "团队分工"
+          ],
+          "风险": [
+            "风险",
+            "风险分析",
+            "风险与对策",
+            "风险与应对"
+          ]
+        }
+      }
+    },
+    {
+      "id": "proposal-pages",
+      "title": "提交页数",
+      "handler": "page_count",
+      "formats": [
+        "docx",
+        "pdf",
+        "txt",
+        "markdown"
+      ],
+      "severity": "warning",
+      "params": {
+        "min": 1,
+        "max": 30
+      }
+    },
+    {
+      "id": "proposal-submission",
+      "title": "文件格式和体积",
+      "handler": "file_submission",
+      "formats": [],
+      "severity": "error",
+      "params": {
+        "formats": [
+          "docx",
+          "pdf"
+        ],
+        "max_bytes": 20971520
+      }
+    }
+  ],
+  "output_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "competition-proposal-v1 评审结果",
+    "type": "object",
+    "properties": {
+      "profile_id": {
+        "const": "competition-proposal-v1"
+      },
+      "summary": {
+        "type": "string",
+        "minLength": 1
+      },
+      "dimensions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "enum": [
+                "objective",
+                "solution",
+                "schedule",
+                "budget",
+                "resources",
+                "risk"
+              ]
+            },
+            "status": {
+              "enum": [
+                "evaluated",
+                "insufficient_evidence"
+              ]
+            },
+            "score": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 10
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "block_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "source": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "page": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "slide": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "section": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "paragraph": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "line_start": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "line_end": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 1
+                      },
+                      "part": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "bbox": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": "number"
+                        },
+                        "minItems": 4,
+                        "maxItems": 4
+                      },
+                      "coordinate_space": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "excerpt": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "block_id",
+                  "source",
+                  "excerpt"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "suggestions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "required": [
+            "id",
+            "status",
+            "score",
+            "rationale",
+            "evidence",
+            "suggestions"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "evaluated"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "score": {
+                    "type": "integer"
+                  },
+                  "evidence": {
+                    "minItems": 1
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "score": {
+                    "type": "null"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "minItems": 6,
+        "maxItems": 6
+      },
+      "priority_actions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "priority": {
+              "enum": [
+                "high",
+                "medium",
+                "low"
+              ]
+            },
+            "action": {
+              "type": "string",
+              "minLength": 1
+            },
+            "block_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "priority",
+            "action",
+            "block_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "profile_id",
+      "summary",
+      "dimensions",
+      "priority_actions"
+    ],
+    "additionalProperties": false
+  },
+  "knowledge_refs": [
+    "cicsic-2025-rules",
+    "dachuang-2019-policy",
+    "dachuang-usc-2025-rubric",
+    "nuedc-2025-topics",
+    "case-cicsic-objective",
+    "case-dachuang-budget",
+    "case-nuedc-test"
+  ]
+}
