@@ -47,3 +47,9 @@ alembic/versions/__pycache__/
 
 # Preview cache
 .preview-cache/
+
+# A 模块本地运行时数据（SQLite 与项目文件，绝不入库）
+wensai/data/
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
