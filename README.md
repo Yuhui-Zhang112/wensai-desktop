@@ -115,6 +115,7 @@ Windows 安装包由 GitHub Actions 产出，不需要本地 Windows 机器：
 | 确定性格式规则 + 三套评审 profile | 已完成 |
 | 评审 Agent（Mock / DeepSeek，结构化输出与证据校验） | 已完成 |
 | 桌面端（项目、材料、预览、建议处理、版本对比） | 已完成 |
+| DeepSeek Key 配置（设置页，存系统钥匙串） | 已完成 |
 | Windows 安装包与自动更新 | 未完成 |
 | 评审报告导出（PDF / Word） | 未完成 |
 
