@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "问赛",
+  "productName": "WenSai",
   "version": "0.1.0",
   "identifier": "local.review.workspace",
   "build": {
@@ -10,11 +10,43 @@
     "frontendDist": "../dist"
   },
   "app": {
-    "windows": [{ "label": "main", "title": "问赛 · 材料评审智能体", "width": 1440, "height": 960, "minWidth": 800, "minHeight": 640 }],
+    "windows": [
+      {
+        "label": "main",
+        "title": "问赛 · 材料评审智能体",
+        "width": 1440,
+        "height": 960,
+        "minWidth": 800,
+        "minHeight": 640
+      }
+    ],
     "security": {
       "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: http://127.0.0.1:8765; connect-src 'self' ipc: http://ipc.localhost http://127.0.0.1:8765 ws://127.0.0.1:8765; object-src 'none'; base-uri 'self'; frame-src 'none'",
-      "capabilities": ["main"]
+      "capabilities": [
+        "main"
+      ]
     }
   },
-  "bundle": { "active": true, "targets": ["nsis"], "icon": ["icons/icon.ico"], "windows": { "webviewInstallMode": { "type": "downloadBootstrapper", "silent": true } } }
+  "bundle": {
+    "active": true,
+    "targets": [
+      "nsis"
+    ],
+    "icon": [
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "webviewInstallMode": {
+        "type": "downloadBootstrapper",
+        "silent": true
+      },
+      "nsis": {
+        "installerFilename": "WenSai_{{version}}_x64-setup.exe",
+        "languages": [
+          "SimpChinese",
+          "English"
+        ]
+      }
+    }
+  }
 }
