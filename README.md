@@ -1,225 +1,123 @@
-# WenSai Backend
+# 问赛 · 竞赛文档智评系统
 
-WenSai Backend 是问赛的业务控制面。它负责认证、工作区、论文评审、Agent 任务状态、事件、审批、文件归档、文件预览和对 AgentSDK 的 internal dispatch。
+[![ci](https://github.com/Yuhui-Zhang112/wensai-desktop/actions/workflows/ci.yml/badge.svg)](https://github.com/Yuhui-Zhang112/wensai-desktop/actions/workflows/ci.yml)
 
-Backend 不直接运行 Hermes，不直接调用 ACP，不直接运行官方 CubeSandbox。所有 Agent 执行都通过 AgentSDK。
+本地运行的竞赛材料智能评审工具。导入 DOCX / PPTX / PDF / TXT / Markdown，
+用「确定性规则 + 大模型」混合评审，输出能定位到段落、页码、幻灯片的问题、原文证据和修改建议；
+采纳建议后生成新版本，**原文件永不覆盖**。
 
-## 任务 B 和任务 C
+面向大创、挑战杯、中国国际大学生创新大赛、数学建模、RoboMaster 等场景的
+论文、计划书与答辩 PPT。
 
-本地分支 task-bc 包含任务 B 的文件解析、格式规则、评审配置与知识库，以及任务 C 的本地评审 Agent、Mock 和 DeepSeek 客户端。接入方式、样例与验收命令见 [任务 B 和 C 使用说明](TASK_BC_README.md)。
+## 为什么不是"把文档直接丢给大模型"
 
-## 技术栈
+| 做法 | 问题 |
+|---|---|
+| 全交给模型 | 字体、字号、行距、页边距这类硬指标会被"猜到"，同一份文档两次结果不一致，无法验收 |
+| 全用规则 | 创新性、研究方法、逻辑密度这类语义维度根本写不出规则 |
 
-| 层 | 技术 |
-| --- | --- |
-| API | FastAPI |
-| 数据模型 | SQLModel, SQLAlchemy |
-| 数据库 | PostgreSQL |
-| 迁移 | Alembic |
-| 实时事件 | Redis Pub/Sub, WebSocket |
-| 异步任务 | Celery |
-| 存储 | Local filesystem 或 S3/MinIO |
-| AI Review | OpenAI-compatible API |
-| 测试 | pytest |
+所以这里做的是分层：
 
-## 系统位置
+- **硬性格式** → 确定性规则判断，可复现、可解释
+- **语义维度** → 大模型评审，但必须给出原文证据
+- **证据缺失的问题直接丢弃**，不允许只返回笼统评价
+- 模型输出经 Pydantic 校验，**校验失败不落库**，任务标记失败而不是存入坏数据
 
-```text
-Frontend
-  -> Backend public API /api
-  -> Backend WebSocket /ws
+## 架构
 
-Backend
-  -> PostgreSQL
-  -> Redis
-  -> Storage local/S3
-  -> AgentSDK internal API
-
-AgentSDK
-  -> local-sandbox fallback
-  -> official CubeSandbox API in production target
+```
+frontend/  (React + Tauri 外壳)
+     │  HTTP / WebSocket
+     ▼
+wensai/    (FastAPI · 127.0.0.1 · SQLite WAL)
+     ├─ 文件生命周期   raw / working / output，版本只增不改
+     ├─ 任务状态机     pending → queued → running → completed|failed|cancelled
+     ├─ 事件通道       先落库再推送，断线按 seq 补拉
+     ├─ 解析层         DOCX / PPTX / PDF / TXT / MD → 统一 block 结构
+     ├─ 规则层         确定性格式检查 + 三套 versioned profile
+     └─ Agent 层       Mock / DeepSeek，结构化输出 + 证据校验
 ```
 
-## 核心职责
+## 目录
 
-- 用户认证：注册、登录、JWT、邀请码、积分。
-- 工作区：个人空间、团队空间、成员、当前 active workspace。
-- 论文评审：论文 CRUD、附件上传、人工评审、AI 评审。
-- Agent 任务：创建、启动、取消、删除、状态机。
-- 事件系统：写入 PostgreSQL，再发布 Redis，WebSocket 推送到前端。
-- 审批：Agent 高风险操作申请、用户批准/拒绝、AgentSDK 等待结果。
-- 文件系统：任务文件、工作区文件、预览、下载、真实删除。
-- Internal API：AgentSDK 回写状态、事件、结果、错误、审批和文件。
+```
+wensai/          本地后端（FastAPI + SQLite），可独立运行
+  app/           路由、存储、任务、Worker、Agent 适配
+  app/material_review/   文档解析、格式规则、评审 profile、知识库
+  app/review_agent/      评审 Agent、Provider、授权范围、证据校验
+  migrations/    SQLite 迁移（001 → 004）
+  tests/         桌面整合、目标 Agent、适配器测试
+  task_b_tests/ task_c_tests/   解析与 Agent 的验收用例与样例
+frontend/        桌面端（React 19 + Vite + Tauri 2），含 src-tauri
+legacy/          早期云端版本后端，仅作历史保留，不再维护
+```
 
-## 本地开发
+## 快速开始
 
-前置条件：
-
-- Python 3.12
-- PostgreSQL
-- Redis
-- AgentSDK 可选，默认地址 `http://127.0.0.1:8010`
-
-安装：
+需要 Python 3.12、Node.js 22。
 
 ```bash
-python3.12 -m venv .venv
-source .venv/bin/activate
+# 1. 后端
+cd wensai
+python3.12 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env
+python -m app.db          # 初始化 SQLite
+python serve.py           # 8765 端口
+
+# 2. 前端
+cd ../frontend
+npm ci
+npm run build             # 产出 dist，serve.py 会自动挂载
+npm run dev               # 或开发模式：http://127.0.0.1:5173
 ```
 
-配置 `.env` 后执行迁移：
+打开 `http://127.0.0.1:8765/health` 应返回 `{"status":"ok"}`。
+Windows 用户可以直接双击根目录的 `安装环境.cmd` → `启动问赛.cmd`。
+
+默认使用**离线 Mock Agent**，不联网也能跑通完整链路；接入真实模型需要在本机凭据管理器保存 DeepSeek Key：
 
 ```bash
-alembic upgrade head
-```
-
-启动 API：
-
-```bash
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-```
-
-健康检查：
-
-```bash
-curl http://127.0.0.1:8000/api/health
-```
-
-API 文档：
-
-```text
-http://127.0.0.1:8000/docs
-```
-
-## 环境变量
-
-| 变量 | 说明 |
-| --- | --- |
-| `SECRET_KEY` | JWT 签名密钥，生产必须强随机 |
-| `DATABASE_URL` | PostgreSQL 连接串 |
-| `REDIS_URL` | Redis 连接串 |
-| `UPLOAD_DIR` | local storage 目录 |
-| `MAX_UPLOAD_SIZE_MB` | 上传大小限制 |
-| `INVITE_CODE` | 注册邀请码 |
-| `LLM_API_KEY` | OpenAI-compatible key |
-| `LLM_BASE_URL` | OpenAI-compatible base URL |
-| `LLM_MODEL` | AI 评审模型 |
-| `STORAGE_BACKEND` | `local` 或 `s3` |
-| `S3_*` | S3/MinIO 配置 |
-| `CORS_ORIGINS` | 允许的前端域名 |
-| `AGENTSDK_BASE_URL` | AgentSDK internal API 地址 |
-| `INTERNAL_API_TOKEN` | Backend 与 AgentSDK 共享的服务间 token |
-| `DISPATCH_AGENT_TASKS` | 是否派发 Agent 任务 |
-| `LOCAL_WORKSPACE_ROOT` | 本地空间 root path fallback |
-| `PREVIEW_CACHE_DIR` | PDF/Office 页图缓存目录 |
-| `SOFFICE_COMMAND` | LibreOffice 命令 |
-| `PDF_PREVIEW_DPI` | PDF/Office 转图 DPI |
-
-生产配置请基于 [.env.example](./.env.example) 创建 `.env`。如果使用三仓库统一编排，建议在服务器上层部署目录维护专用 `.env.production`，不要提交真实密钥。
-
-## 目录结构
-
-```text
-app/
-  main.py             FastAPI 入口、路由注册、启动重派发
-  config.py           环境变量
-  database.py         SQLAlchemy engine/session
-  storage.py          local/S3 存储抽象
-  auth/               注册、登录、JWT、积分
-  users/              用户模型和 schema
-  workspaces/         工作区、成员、active workspace
-  papers/             论文和附件
-  reviews/            人工/AI 评审
-  tasks/              Agent task public API、dispatcher、状态服务
-  events/             任务事件模型和 EventService
-  approvals/          用户审批 API
-  files/              任务文件、工作区文件、预览和真实删除
-  internal_api/       AgentSDK 回写 API
-  realtime/           WebSocket 推送
-  agent_profiles/     Agent profile API
-alembic/              数据库迁移
-tests/                pytest 测试
-```
-
-## API 分组
-
-| 分组 | 路径 |
-| --- | --- |
-| Auth | `/api/auth/*` |
-| Workspaces | `/api/workspaces/*` |
-| Papers | `/api/papers/*` |
-| Reviews | `/api/papers/{id}/reviews`, `/api/reviews/*` |
-| Tasks | `/api/tasks/*` |
-| Approvals | `/api/approvals/*`, `/api/tasks/{id}/approvals/*` |
-| Files | `/api/tasks/{id}/files`, `/api/workspaces/{id}/files`, `/api/files/*` |
-| Internal | `/api/internal/*` |
-| WebSocket | `/ws/tasks/{task_id}/events` |
-
-## Agent 任务链路
-
-1. Frontend 创建任务：`POST /api/tasks`。
-2. Backend 创建 `Task`，状态进入 `queued`。
-3. Backend 调 AgentSDK：`POST /internal/agent-runs`，只发送 `task_id`。
-4. AgentSDK 通过 Backend internal API 读取任务详情。
-5. AgentSDK 运行 runtime，向 Backend 回写事件、审批、文件和结果。
-6. Backend 写数据库、发布 Redis，WebSocket 推送给 Frontend。
-
-Backend 启动时会重新派发未开始的 queued tasks，避免 AgentSDK 暂时离线造成任务卡住。
-
-## 文件与沙盒链路
-
-- Backend 保存文件记录和 storage object。
-- 上传/新建任务文件后，Backend 会把文件转发到 AgentSDK sandbox input。
-- 删除文件时，Backend 必须删除 storage 记录和 AgentSDK sandbox 内真实文件。
-- 删除任务/沙盒时，Backend 会请求 AgentSDK cleanup 对应 sandbox。
-- PDF/Office 预览页图由 Backend 生成并缓存，Frontend 可再同步到 IndexedDB。
-
-## 数据库迁移
-
-```bash
-alembic revision --autogenerate -m "describe change"
-alembic upgrade head
-```
-
-生产每次发布后都要执行：
-
-```bash
-alembic upgrade head
+cd wensai && python -m app.review_agent configure-key
 ```
 
 ## 测试
 
 ```bash
-pytest
+cd wensai
+pip install -r requirements-test.txt
+python -m pytest tests/test_desktop.py tests/test_goal_agent.py \
+  tests/test_adapters.py task_b_tests task_c_tests -q
 ```
 
-建议按改动范围运行：
+覆盖：三种文件格式解析、100 MiB 上限与多 1 字节边界、跨项目路径拒绝、
+连续两次修订、并发保存冲突、任务取消与重试、进程强制重启后的恢复、
+事件补读、解析结果缓存、适配器无效输出、评审结果持久化。
 
-```bash
-pytest tests/test_auth.py
-pytest tests/test_tasks_platform.py tests/test_workspaces.py
-pytest tests/test_papers.py tests/test_reviews.py
-```
+注意：测试会真实传输 100 MiB 文件，需要约 600 MB 临时磁盘。
 
-## 部署
+## 现状
 
-单 Backend compose 见本目录 [docker-compose.yml](./docker-compose.yml)。
+| 模块 | 状态 |
+|---|---|
+| 本地后端（文件生命周期、任务状态机、事件通道） | 已完成 |
+| 文档解析（DOCX / PPTX / PDF / TXT / MD） | 已完成 |
+| 确定性格式规则 + 三套评审 profile | 已完成 |
+| 评审 Agent（Mock / DeepSeek，结构化输出与证据校验） | 已完成 |
+| 桌面端（项目、材料、预览、建议处理、版本对比） | 已完成 |
+| Windows 安装包与自动更新 | 未完成 |
+| 评审报告导出（PDF / Word） | 未完成 |
 
-完整生产部署推荐在服务器上层部署目录统一编排 `Backend / AgentSDK / PostgreSQL / Redis`。如果只部署 Backend，可使用本目录 compose：
+## 第三方组件与许可
 
-```bash
-docker compose up --build -d
-docker compose exec api alembic upgrade head
-```
+见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。其中 **PyMuPDF 采用 AGPL-3.0**，
+对外分发二进制前需要替换或购买商业授权，详见该文件。
 
-生产版官方 CubeSandbox 应安装在宿主机 / 裸机层，AgentSDK 通过 API 调用。不要把 CubeSandbox 宿主机组件放进 Backend 或 AgentSDK 容器。
+## 分工
 
-## 维护注意
-
-- Backend 是权限和数据一致性的最终裁决点。
-- Internal API 必须校验 `X-Internal-Token`。
-- 事件必须先落 PostgreSQL，再 publish Redis。
-- 文件删除必须是真删除，不能只删除数据库记录。
-- Frontend 不应知道 AgentSDK 或 CubeSandbox 地址。
+| 角色 | 范围 |
+|---|---|
+| A | 本地后端、SQLite、文件生命周期、任务调度 |
+| B | 文档解析、格式规则、评审 profile、知识库 |
+| C | Agent 编排、模型接入、结构化输出与校验 |
+| D | Tauri 桌面外壳、React 界面、预览与差异对比 |
+| E | 契约、集成、验收与发布 |
