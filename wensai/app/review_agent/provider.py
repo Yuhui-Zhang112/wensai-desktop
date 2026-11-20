@@ -43,6 +43,13 @@ class SystemCredentialStore:
             raise ReviewError("credential_missing", "系统密钥管理器尚未配置 DeepSeek 测试凭据。")
         return key
 
+    def delete(self):
+        """移除已保存的凭据；不存在时视为成功。"""
+        try:
+            self._backend().delete_password(SERVICE, ACCOUNT)
+        except Exception:
+            pass
+
     def write(self, key):
         if not isinstance(key, str) or not key or len(key) > 300 or not key.isascii() or not key.isprintable() or any(c.isspace() for c in key):
             raise ReviewError("credential_invalid", "DeepSeek 凭据格式无效。")

@@ -20,7 +20,7 @@ from . import materials, storage
 from .desktop_engine import append_event, change
 from .material_review import parse_document, validate_document, load_profile, check_document, MaterialError
 from .material_review.model import Document, Block, Source
-from .review_agent import TaskInput, Selection, TextSlice, Approval, ReviewError, preview_scope
+from .review_agent import TaskInput, Selection, TextSlice, Approval, ReviewError, SystemCredentialStore, preview_scope
 from .review_agent.scope import ALLOWED_TEXT
 from .review_agent.skills import select_skill
 
@@ -445,6 +445,44 @@ def export(material_id: str, body: ExportInput, request: Request, conn=Depends(g
 @router.get('/versions/{version_id}/download')
 def download(version_id: str, request: Request, conn=Depends(get_db)):
     return materials.export_version(version_id, request, conn)
+
+
+def credential_store() -> SystemCredentialStore:
+    """独立的依赖项，测试可覆盖，避免真实读写系统钥匙串。"""
+    return SystemCredentialStore()
+
+
+class CredentialPayload(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    apiKey: str = Field(min_length=8, max_length=300)
+
+
+@router.get('/settings/credential')
+def credential_status(store: SystemCredentialStore = Depends(credential_store)):
+    """只返回是否已配置，永不返回密钥本身。"""
+    try:
+        store.read()
+        return {'provider': 'deepseek', 'configured': True, 'storage': 'os_keychain'}
+    except ReviewError as error:
+        if error.code == 'credential_missing':
+            return {'provider': 'deepseek', 'configured': False, 'storage': 'os_keychain'}
+        raise ApiError(503, error.code, str(error)) from error
+
+
+@router.put('/settings/credential')
+def save_credential(payload: CredentialPayload, store: SystemCredentialStore = Depends(credential_store)):
+    """保存 DeepSeek Key。只写系统钥匙串，不落数据库、不写日志。"""
+    try:
+        store.write(payload.apiKey.strip())
+    except ReviewError as error:
+        raise ApiError(422, error.code, str(error)) from error
+    return {'provider': 'deepseek', 'configured': True, 'storage': 'os_keychain'}
+
+
+@router.delete('/settings/credential')
+def clear_credential(store: SystemCredentialStore = Depends(credential_store)):
+    store.delete()
+    return {'provider': 'deepseek', 'configured': False, 'storage': 'os_keychain'}
 
 
 @router.get('/service')
