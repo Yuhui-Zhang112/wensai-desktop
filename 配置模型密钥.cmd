@@ -1,6 +1,6 @@
 @echo off
 chcp 65001 >nul
-cd /d "%~dp0backend"
+cd /d "%~dp0wensai"
 if not exist "..\.venv\Scripts\python.exe" (
   echo 请先运行安装环境.cmd。
   pause
