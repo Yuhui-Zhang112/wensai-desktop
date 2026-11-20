@@ -95,6 +95,17 @@ python -m pytest tests/test_desktop.py tests/test_goal_agent.py \
 
 注意：测试会真实传输 100 MiB 文件，需要约 600 MB 临时磁盘。
 
+## 打包与发布
+
+Windows 安装包由 GitHub Actions 产出，不需要本地 Windows 机器：
+
+- 手动构建：Actions → `windows-build` → Run workflow
+- 打 tag 自动发布：`git tag v0.1.0 && git push origin v0.1.0`，安装包会挂到 Release 页面
+
+安装包 = PyInstaller 打包的后端 sidecar（`review-api.exe`）+ Tauri 外壳 + 前端静态资源，约 50 MB。
+首次启动较慢（onefile 需要解压），运行数据存放在 `%LOCALAPPDATA%\WenSai`。
+未做代码签名，Windows 会提示「未知发布者」，需要用户手动选择「仍要运行」。
+
 ## 现状
 
 | 模块 | 状态 |
