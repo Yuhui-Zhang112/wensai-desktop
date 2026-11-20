@@ -225,13 +225,15 @@ class Acceptance(unittest.TestCase):
         pdf = self.directory / "valid.pdf"
         write_pdf(pdf)
         self.expect(self.upload(project, pdf.name, pdf.read_bytes()), 201)
-        self.expect_error(self.upload(project, "memo.txt", b"hello"), 415)
+        # 整合版新增 TXT/Markdown 支持：合法 UTF-8 文本应被接受（原 A 版本仅支持 Office/PDF）
+        self.expect(self.upload(project, "memo.txt", b"hello"), 201)
+        self.expect_error(self.upload(project, "memo.bin", b"hello"), 415)
         self.expect_error(self.upload(project, "memo.pdf", b"hello"), 415)
         self.expect_error(self.upload(project, "memo.docx", office_file("pptx")), 415)
         self.expect_error(self.upload(project, "../outside.docx", office_file()), 400)
         self.assertFalse((self.file_root / "outside.docx").exists())
         materials = self.expect(self.client.get(API + f"/projects/{project}/materials"), 200)
-        self.assertEqual(len(materials), 3)
+        self.assertEqual(len(materials), 4)
 
     def test_exact_100_mib_and_one_byte_over(self):
         project = self.project()
