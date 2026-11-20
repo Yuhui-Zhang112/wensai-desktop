@@ -1,0 +1,177 @@
+{
+  "result": {
+    "schema_version": "1.0",
+    "meta": {
+      "task_id": "proposal",
+      "revision_id": "synthetic-r1",
+      "profile_id": "competition-proposal-v1",
+      "profile_version": 1,
+      "skill_id": "competition-proposal-review",
+      "skill_version": 1,
+      "provider": "mock",
+      "model": "wensai-mock-v1",
+      "started_at": "2026-11-16T14:42:14.785317Z",
+      "finished_at": "2026-11-16T14:42:14.802154Z",
+      "status": "completed",
+      "text_count": 1,
+      "image_count": 0,
+      "chunk_count": 1,
+      "reference_ids": [
+        "case-cicsic-objective",
+        "case-dachuang-budget"
+      ]
+    },
+    "review": {
+      "profile_id": "competition-proposal-v1",
+      "summary": "Mock：固定教学样例，仅供验收。 1/6 个维度有证据，发现 1 条去重问题。",
+      "dimensions": [
+        {
+          "id": "objective",
+          "status": "insufficient_evidence",
+          "score": null,
+          "rationale": "已确认且成功评审的范围内无可引用证据。",
+          "evidence": [],
+          "suggestions": []
+        },
+        {
+          "id": "solution",
+          "status": "insufficient_evidence",
+          "score": null,
+          "rationale": "已确认且成功评审的范围内无可引用证据。",
+          "evidence": [],
+          "suggestions": []
+        },
+        {
+          "id": "schedule",
+          "status": "insufficient_evidence",
+          "score": null,
+          "rationale": "已确认且成功评审的范围内无可引用证据。",
+          "evidence": [],
+          "suggestions": []
+        },
+        {
+          "id": "budget",
+          "status": "evaluated",
+          "score": 3,
+          "rationale": "任务 C 的固定教学样例命中。",
+          "evidence": [
+            {
+              "block_id": "pdf/page/2/text/1",
+              "source": {
+                "path": "pdf/page/2/text/1",
+                "page": 2,
+                "slide": null,
+                "section": null,
+                "paragraph": null,
+                "line_start": null,
+                "line_end": null,
+                "bbox": [
+                  45.0,
+                  84.0,
+                  397.0,
+                  97.2
+                ],
+                "coordinate_space": "pdf_unrotated_pt",
+                "part": null
+              },
+              "excerpt": "预算总额为3000元，未列分项"
+            }
+          ],
+          "suggestions": [
+            "按采购项列出数量、单价、合计与估算依据。"
+          ]
+        },
+        {
+          "id": "resources",
+          "status": "insufficient_evidence",
+          "score": null,
+          "rationale": "已确认且成功评审的范围内无可引用证据。",
+          "evidence": [],
+          "suggestions": []
+        },
+        {
+          "id": "risk",
+          "status": "insufficient_evidence",
+          "score": null,
+          "rationale": "已确认且成功评审的范围内无可引用证据。",
+          "evidence": [],
+          "suggestions": []
+        }
+      ],
+      "priority_actions": [
+        {
+          "priority": "medium",
+          "action": "按采购项列出数量、单价、合计与估算依据。",
+          "block_id": "pdf/page/2/text/1"
+        }
+      ]
+    },
+    "issues": [
+      {
+        "id": "issue-5c0910fb11990be2097c9d6f",
+        "location": {
+          "block_id": "pdf/page/2/text/1",
+          "source": {
+            "path": "pdf/page/2/text/1",
+            "page": 2,
+            "slide": null,
+            "section": null,
+            "paragraph": null,
+            "line_start": null,
+            "line_end": null,
+            "bbox": [
+              45.0,
+              84.0,
+              397.0,
+              97.2
+            ],
+            "coordinate_space": "pdf_unrotated_pt",
+            "part": null
+          },
+          "char_start": 5,
+          "char_end": 20
+        },
+        "severity": "medium",
+        "criterion": "budget",
+        "criterion_name": "预算",
+        "standard_index": 0,
+        "review_standard": "列出分项、数量、单价、总额和估算依据",
+        "evidence": {
+          "kind": "text",
+          "quote": "预算总额为3000元，未列分项",
+          "image_sha256": null
+        },
+        "suggestion": "按采购项列出数量、单价、合计与估算依据。"
+      }
+    ],
+    "total_score": null
+  },
+  "audit": [
+    {
+      "task_id": "proposal",
+      "profile_id": "competition-proposal-v1",
+      "profile_version": 1,
+      "skill_id": "competition-proposal-review",
+      "skill_version": 1,
+      "model": "wensai-mock-v1",
+      "chunk": 1,
+      "attempt": 1,
+      "request_time": "2026-11-16T14:42:14.802154Z",
+      "duration_ms": 0,
+      "status": "completed",
+      "error_code": null,
+      "http_status": null,
+      "input_bytes": 3544,
+      "image_count": 0
+    }
+  ],
+  "edit_example": {
+    "task_id": "proposal",
+    "revision_id": "synthetic-r1",
+    "issue_id": "issue-5c0910fb11990be2097c9d6f",
+    "version": 1,
+    "previous": "按采购项列出数量、单价、合计与估算依据。",
+    "suggestion": "加入明确、可复核的验收步骤。"
+  },
+  "original_unchanged": true
+}

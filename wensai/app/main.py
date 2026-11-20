@@ -17,6 +17,8 @@ from .http import JsonCORSMiddleware, LocalRequestPolicy
 from .instance import instance_lock
 from .storage import recover_storage
 from .worker import Worker
+from .desktop import router as desktop_router
+from .desktop_engine import Engine
 
 logger = logging.getLogger("uvicorn.error")
 
@@ -34,9 +36,13 @@ def create_app(settings=None, agent=None, parser=None) -> FastAPI:
             worker = Worker(settings, agent=agent, parser=parser)
             app.state.worker = worker
             worker.start()
+            desktop_engine = Engine(settings)
+            app.state.desktop_engine = desktop_engine
+            desktop_engine.start()
             try:
                 yield
             finally:
+                await asyncio.to_thread(desktop_engine.stop)
                 await asyncio.to_thread(worker.stop)
 
     app = FastAPI(title="问赛 · 本地评审 API", version="1.0.0",
@@ -48,7 +54,7 @@ def create_app(settings=None, agent=None, parser=None) -> FastAPI:
     app.add_middleware(LocalRequestPolicy, settings=settings)
     if settings.cors_origins:
         app.add_middleware(JsonCORSMiddleware, allow_origins=list(settings.cors_origins),
-                           allow_methods=["GET", "POST", "OPTIONS"],
+                           allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
                            allow_headers=["Content-Type"], expose_headers=["Content-Disposition"])
 
     @app.exception_handler(ApiError)
@@ -84,4 +90,5 @@ def create_app(settings=None, agent=None, parser=None) -> FastAPI:
 
     app.include_router(materials.router, prefix="/api/v1")
     app.include_router(tasks.router, prefix="/api/v1")
+    app.include_router(desktop_router, prefix="/api/v1")
     return app

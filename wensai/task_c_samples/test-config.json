@@ -1,0 +1,5 @@
+{
+  "retries": 1,
+  "timeout_seconds": 20,
+  "task_timeout_seconds": 75
+}

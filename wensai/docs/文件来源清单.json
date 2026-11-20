@@ -1,0 +1,629 @@
+{
+  "note": "按提供的解压基线逐字节比较；不含运行数据或密钥。",
+  "files": [
+    {
+      "path": "backend/app/__init__.py",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/app/__init__.py",
+      "sha256": "56d07bc9c7193eee107c630ddad3471efea488c545f25c185d67b2063ef403a3"
+    },
+    {
+      "path": "backend/app/__main__.py",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/app/__main__.py",
+      "sha256": "66ffe689111dd3a850735357018f71bd1cecf507f64ce53d9b5948405af38675"
+    },
+    {
+      "path": "backend/app/agent.py",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/app/agent.py",
+      "sha256": "bcd4cd5bc2a3011ff8c577bbc2c4792924c762cb2675d1689ab064b3b7ecd18d"
+    },
+    {
+      "path": "backend/app/agent_runtime.py",
+      "category": "新增适配/入口/测试",
+      "source": "此前整合工程",
+      "sha256": "01d0bbf780f638dca8c9065c756ad52aba9c7f70e87026dc595205eac85727a4"
+    },
+    {
+      "path": "backend/app/common.py",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/app/common.py",
+      "sha256": "54cc6bbc818dbc77774f93c386c0e26be2b52c9456d1571441a4a47a340419b0"
+    },
+    {
+      "path": "backend/app/config.py",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/app/config.py",
+      "sha256": "202483eb8fccf69bc2fe743fe1c5980d38db05a390188757faadedb373b4d43c"
+    },
+    {
+      "path": "backend/app/db.py",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/app/db.py",
+      "sha256": "52a6312a07769d61d57a6fcf72bc37ac85c0ce516e11d463cd7d232ae987a808"
+    },
+    {
+      "path": "backend/app/desktop.py",
+      "category": "新增适配/入口/测试",
+      "source": "此前整合工程",
+      "sha256": "67d11ee0fc08b63a3f7ca086374c867dec567e157365e13e2077352dbd57a70f"
+    },
+    {
+      "path": "backend/app/desktop_engine.py",
+      "category": "新增适配/入口/测试",
+      "source": "此前整合工程",
+      "sha256": "21c507fa0244854d218687c11b7f467da518a5e8d1b1c6ac014f8527c0881b07"
+    },
+    {
+      "path": "backend/app/http.py",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/app/http.py",
+      "sha256": "4c50ddb87ccd90a60b9229a16641803059c809075e20d552b921102543a86e14"
+    },
+    {
+      "path": "backend/app/instance.py",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/app/instance.py",
+      "sha256": "0d06d16c9cacea7a20f2412847edcbbeac91c925b759a15752f6475f8e598776"
+    },
+    {
+      "path": "backend/app/main.py",
+      "category": "修改A",
+      "source": "A(1).zip/wensai/app/main.py",
+      "sha256": "b871dce1045b496874186f20e2a3e430fc10292d4fd34d1f810f9b69b85d4e82"
+    },
+    {
+      "path": "backend/app/material_review/__init__.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/__init__.py",
+      "sha256": "01310eee69bcc46786e8ac53ddf448e95c2e16d69b5e061434096af12db30ad6"
+    },
+    {
+      "path": "backend/app/material_review/__main__.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/__main__.py",
+      "sha256": "12d5fc1b5173fc133e1221cd4218784c178059b13c176ec76fed433743059951"
+    },
+    {
+      "path": "backend/app/material_review/catalog.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/catalog.py",
+      "sha256": "fbd78dd4990a1a73e9c2cd23530e1ef9164ae630bf0b55e43dc49d7551bfeb9a"
+    },
+    {
+      "path": "backend/app/material_review/fixes.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/fixes.py",
+      "sha256": "532b7d03984e4698d60a882fbc49fa5bcbca5e07d3685151fd5653aabb36be14"
+    },
+    {
+      "path": "backend/app/material_review/knowledge/index.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/knowledge/index.json",
+      "sha256": "1d71a55c127615fa49d6a3063d6fcefbb82660f2e9b0a2d6ef8e3b46aed2aedc"
+    },
+    {
+      "path": "backend/app/material_review/knowledge/instructional_cases/case-challenge-method.md",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/knowledge/instructional_cases/case-challenge-method.md",
+      "sha256": "f7407c0d0e15320dc1fbca990780d2c82f1d799bcc4a3eee360f82406a0029cc"
+    },
+    {
+      "path": "backend/app/material_review/knowledge/instructional_cases/case-cicsic-objective.md",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/knowledge/instructional_cases/case-cicsic-objective.md",
+      "sha256": "bec6aadc6bc6410e65657ecc00c6dc5bef8d0e0c203c170abf52e560d70a6b27"
+    },
+    {
+      "path": "backend/app/material_review/knowledge/instructional_cases/case-dachuang-budget.md",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/knowledge/instructional_cases/case-dachuang-budget.md",
+      "sha256": "a582cb124bee40449991cd95abe8e8a96fbd514c31f00f3275be875dcd43b393"
+    },
+    {
+      "path": "backend/app/material_review/knowledge/instructional_cases/case-mcm-abstract.md",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/knowledge/instructional_cases/case-mcm-abstract.md",
+      "sha256": "fe3d26c8cbaa53e506d77160941f9171b3042b15da50b93dbb42b90acdc3e1d0"
+    },
+    {
+      "path": "backend/app/material_review/knowledge/instructional_cases/case-nuedc-test.md",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/knowledge/instructional_cases/case-nuedc-test.md",
+      "sha256": "3f8fce6026cc2bf1c96970c151986924158147588dd513f860561dc6264dad7f"
+    },
+    {
+      "path": "backend/app/material_review/knowledge/instructional_cases/case-rm-pacing.md",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/knowledge/instructional_cases/case-rm-pacing.md",
+      "sha256": "342a6bd70bf0af6c1ec0375e866289476c7ce7dd74730126ad582586ce6636d1"
+    },
+    {
+      "path": "backend/app/material_review/model.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/model.py",
+      "sha256": "ba0ec3fc4825ee2edcd81818e34e42a79113917f5bfccdf03e53ab3b8297f512"
+    },
+    {
+      "path": "backend/app/material_review/parse.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/parse.py",
+      "sha256": "16c32b284639c043d6e092a012e757ba4d571291937a6072ef48a6da96e7c780"
+    },
+    {
+      "path": "backend/app/material_review/pdf.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/pdf.py",
+      "sha256": "e268bbbdcdb9081462a76f6094749f5a88bcb085511694d8a26487f4acd09efd"
+    },
+    {
+      "path": "backend/app/material_review/profiles/academic-paper-v1.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/profiles/academic-paper-v1.json",
+      "sha256": "70ed111e2e0c092b88c88ba6d510deb5e512377c0cb68d6924787c2d35230c9a"
+    },
+    {
+      "path": "backend/app/material_review/profiles/competition-proposal-v1.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/profiles/competition-proposal-v1.json",
+      "sha256": "f733867533a823ee8c446a883e320126590b03781d888e05e9ae78fb17398881"
+    },
+    {
+      "path": "backend/app/material_review/profiles/ppt-defense-v1.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/profiles/ppt-defense-v1.json",
+      "sha256": "350db7f4aada2fe2a7c1528c895877f45f92ee1bb7a7b904d2493717cbb8d818"
+    },
+    {
+      "path": "backend/app/material_review/profiles/profiles.lock.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/profiles/profiles.lock.json",
+      "sha256": "fb2e709e547e57763d32e8027a1837aa7992ad52ba965660e92c43b107c2db30"
+    },
+    {
+      "path": "backend/app/material_review/rules.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/rules.py",
+      "sha256": "0a77af8421600313196b318b836662063d598dba6c9b14dde3157feaacab214c"
+    },
+    {
+      "path": "backend/app/material_review/schemas/document.schema.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/schemas/document.schema.json",
+      "sha256": "5c8315196d4586d977bd5abc6ef47ea9d9faafffcbefe11f6a0a2db84f154e59"
+    },
+    {
+      "path": "backend/app/material_review/schemas/knowledge.schema.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/schemas/knowledge.schema.json",
+      "sha256": "91d0d9c1f7977a88c699057eedc87423ff4e6321d48fd0a7ee061a46c4c5a3ee"
+    },
+    {
+      "path": "backend/app/material_review/schemas/profile.schema.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/schemas/profile.schema.json",
+      "sha256": "3b3f1cd91faa42b2193318220ddea5afc20fd02f0bdee42ef61916302f0c907c"
+    },
+    {
+      "path": "backend/app/material_review/slides.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/slides.py",
+      "sha256": "b30b79531f3441e6ea19823fd32e8a04ca7bed968d8518d4444a0c3291b5309b"
+    },
+    {
+      "path": "backend/app/material_review/text.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/text.py",
+      "sha256": "e77631ec17d550204cead05c007a79ac3d22393f0035b9d24ff6095fe12b1452"
+    },
+    {
+      "path": "backend/app/material_review/word.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/material_review/word.py",
+      "sha256": "68d674ffe8343eda94d03933883fa035e7ba5f129f8f2b28f1c0e64eae4e5af6"
+    },
+    {
+      "path": "backend/app/materials.py",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/app/materials.py",
+      "sha256": "5816acf5e68d2bfd381e2d8f25fcd0212c0c09fbae6f1a380e156cdbbb681105"
+    },
+    {
+      "path": "backend/app/review_agent/__init__.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/review_agent/__init__.py",
+      "sha256": "c65fa8ad8beb09707f168ee267f20ce1106cc881de87a97409571c9e35fe60d1"
+    },
+    {
+      "path": "backend/app/review_agent/__main__.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/review_agent/__main__.py",
+      "sha256": "2779b0f9dc74cccdb788ace87cda80655cbc285a98cb0d53fa7836df639987e5"
+    },
+    {
+      "path": "backend/app/review_agent/engine.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/review_agent/engine.py",
+      "sha256": "81f5663d38eccd949b968107de1c318bbc55966afe31340bf2d71a0904200b6e"
+    },
+    {
+      "path": "backend/app/review_agent/gateway.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/review_agent/gateway.py",
+      "sha256": "44989cba6c66a52bdc848e0a9fc31f995c5ce00f5777e06509ce8eed94d21add"
+    },
+    {
+      "path": "backend/app/review_agent/images.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/review_agent/images.py",
+      "sha256": "ea52dd2ccb7b4a91dac632351cab51a775bee38e96cf0cb6726f35324cb928e8"
+    },
+    {
+      "path": "backend/app/review_agent/models.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/review_agent/models.py",
+      "sha256": "1d9cc9efab4c8c492d7fdf306d1643c3ae26b39538bd13494291238cd02fb2fd"
+    },
+    {
+      "path": "backend/app/review_agent/prompt.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/review_agent/prompt.py",
+      "sha256": "2f9272a8f98b63d4ccf46287ff7d512a3e73634b041816c8fe780097512bce2a"
+    },
+    {
+      "path": "backend/app/review_agent/provider.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/review_agent/provider.py",
+      "sha256": "baaa9e641cf91d0a8928bd4e84a0b9e1890e73f04b5c5345d9e37afe932ae2fa"
+    },
+    {
+      "path": "backend/app/review_agent/scope.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/review_agent/scope.py",
+      "sha256": "db83b990a277e29e624b211f16e8832d1f8196e393238c3d32982e77c8d5879e"
+    },
+    {
+      "path": "backend/app/review_agent/skills.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/app/review_agent/skills.py",
+      "sha256": "e7fc8e3afe5fbdf86162680c7c3d3e907d9193a37e3897ba59d44af7492ba9bb"
+    },
+    {
+      "path": "backend/app/storage.py",
+      "category": "修改A",
+      "source": "A(1).zip/wensai/app/storage.py",
+      "sha256": "25a5b7f2a999ab9bd074bd0c0b6bdc2d752130b00bd26a068b72f253d9c74f6d"
+    },
+    {
+      "path": "backend/app/tasks.py",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/app/tasks.py",
+      "sha256": "85a45130f2a069d7e548f06587c2602c27c56bd019c6b523d10aa7e368045837"
+    },
+    {
+      "path": "backend/app/worker.py",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/app/worker.py",
+      "sha256": "922e59f4372e9aa6494e8f0e3ca521e1aa000055f241d7c34d700317a91e047e"
+    },
+    {
+      "path": "backend/examples/campus-plan.docx",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/examples/campus-plan.docx",
+      "sha256": "2f673c0e16eed04168ee83a8171577fb875a09c11d69a8f235de19c9ab184484"
+    },
+    {
+      "path": "backend/migrations/001_initial.sql",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/migrations/001_initial.sql",
+      "sha256": "1d68e61e1ed5581d98812de0a782b84839ca24808e37155d10bc9e0984b93d55"
+    },
+    {
+      "path": "backend/migrations/002_material_parse.sql",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/migrations/002_material_parse.sql",
+      "sha256": "729dd56391c0c8d161d35183489fe51c6336413c28edaaae1ef8e0a434218e13"
+    },
+    {
+      "path": "backend/migrations/003_desktop_integration.sql",
+      "category": "新增适配/入口/测试",
+      "source": "此前整合工程",
+      "sha256": "39d526074db350c7657f871f0018df153163c0ea3d7cdbe9261154f400c25d69"
+    },
+    {
+      "path": "backend/migrations/004_goal_agent.sql",
+      "category": "新增适配/入口/测试",
+      "source": "此前整合工程",
+      "sha256": "c5053c24a5d7db1248bc048206de1e62771ffc57bbeadfeab13e631bb695f5da"
+    },
+    {
+      "path": "backend/requirements-test.txt",
+      "category": "修改A",
+      "source": "A(1).zip/wensai/requirements-test.txt",
+      "sha256": "8636f9ab1a075be9f3039e2a6471837259c4f36b625bcaf7a3d9a1edd2419c6d"
+    },
+    {
+      "path": "backend/requirements.txt",
+      "category": "修改A",
+      "source": "A(1).zip/wensai/requirements.txt",
+      "sha256": "42223129b1c077299ceb7ee2895ac4c17392b7672549d3ec3bbaf71343e88f63"
+    },
+    {
+      "path": "backend/serve.py",
+      "category": "新增适配/入口/测试",
+      "source": "此前整合工程",
+      "sha256": "c401cf8164de262a90d0ff8de7cb8f3346a10975d8b47cdf0043dd795d030545"
+    },
+    {
+      "path": "backend/task_b_samples/academic_errors.docx",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_samples/academic_errors.docx",
+      "sha256": "19c066b2adb823442e7d9bfe3d1ca883b16c6c9d2ce848bf19de2b64c7847966"
+    },
+    {
+      "path": "backend/task_b_samples/academic_ok.docx",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_samples/academic_ok.docx",
+      "sha256": "d77be3f5bc906cc08921af0308fc142de7c4346cc4a287bba572394c8df7c0a2"
+    },
+    {
+      "path": "backend/task_b_samples/corrupt.docx",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_samples/corrupt.docx",
+      "sha256": "71eada0ddcfa153a12458c55f09b90c6e1b6fefb95a8c7101eff0ee588d9c753"
+    },
+    {
+      "path": "backend/task_b_samples/defense_errors.pptx",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_samples/defense_errors.pptx",
+      "sha256": "f76d165c586d31ecf20f85c507e0685d3478f736ba0063639dda5d37efda9757"
+    },
+    {
+      "path": "backend/task_b_samples/defense_ok.pptx",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_samples/defense_ok.pptx",
+      "sha256": "221c2fa3d469e596a6046a3d7cfdc70612a3421766d8c38de980116c644301c7"
+    },
+    {
+      "path": "backend/task_b_samples/expected_format_findings.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_samples/expected_format_findings.json",
+      "sha256": "c88b60601b0940a23f881f0a41005723ac571097d5b8ea5069f8c0d5d10700a3"
+    },
+    {
+      "path": "backend/task_b_samples/images/prototype.png",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_samples/images/prototype.png",
+      "sha256": "2aa3da67233ecb9f67602e12bd77b2af0a6dff5291f6efc54bc638ef74e75861"
+    },
+    {
+      "path": "backend/task_b_samples/material.md",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_samples/material.md",
+      "sha256": "81d8423ce45e1678bcf82418f8f41e53aaef7b61c7a92b0e150686b977da5510"
+    },
+    {
+      "path": "backend/task_b_samples/material.pdf",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_samples/material.pdf",
+      "sha256": "d64d27b605c3bee227598a31bf3fb70dbd0966da95f2bef61fe6009e2ae14501"
+    },
+    {
+      "path": "backend/task_b_samples/material.txt",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_samples/material.txt",
+      "sha256": "4183bb3e222251001ca98b61e32c1a9e45e61196e6ed73f538d0752f97aa724d"
+    },
+    {
+      "path": "backend/task_b_samples/proposal_errors.docx",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_samples/proposal_errors.docx",
+      "sha256": "d7f4c168166d636a647b4c983425c8bbe20ff690ee6c16448aa8c9130c27e4b4"
+    },
+    {
+      "path": "backend/task_b_samples/proposal_ok.docx",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_samples/proposal_ok.docx",
+      "sha256": "de7e7508bbff65db82f2a5623245e84d44bc90c75677cb5799e36f64b946f767"
+    },
+    {
+      "path": "backend/task_b_samples/sample_agent_output.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_samples/sample_agent_output.json",
+      "sha256": "6d4180aa651e8c85258f2aaa8f957bb7ee065c3712880033c66d28731533a902"
+    },
+    {
+      "path": "backend/task_b_samples/sample_format_report.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_samples/sample_format_report.json",
+      "sha256": "fdae0959f1b3e447f8f9169aea9d52877973026ac046e88d40477c37f486e140"
+    },
+    {
+      "path": "backend/task_b_samples/scan_like.pdf",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_samples/scan_like.pdf",
+      "sha256": "6886c460e6267e386c11626430277c83073f2ff327932d47282b8ee8c6b93924"
+    },
+    {
+      "path": "backend/task_b_tests/make_samples.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_tests/make_samples.py",
+      "sha256": "90d84f8490968fd58379b9cca631c48e735b5d68f4c78e766ba5b8dad6fa24a3"
+    },
+    {
+      "path": "backend/task_b_tests/test_task_b.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_b_tests/test_task_b.py",
+      "sha256": "897dee6bdda79be73ff7d8c9b7ed50d7b54b0c84b01627c2d86fb65aa0b91caa"
+    },
+    {
+      "path": "backend/task_c_samples/defense-mock-result.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/defense-mock-result.json",
+      "sha256": "712dec2a8d3a09f8c945e8f2fb614b129e471cd1a23f2c1f06a11cfb19e0cabf"
+    },
+    {
+      "path": "backend/task_c_samples/defense-selection.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/defense-selection.json",
+      "sha256": "b1f6666cf0add924635c4e39ea2c2ea655ebc3ec267d12f67107ea0c49b4418a"
+    },
+    {
+      "path": "backend/task_c_samples/defense-vision-selection.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/defense-vision-selection.json",
+      "sha256": "2ac9b34060dd67f93bb19804861a537d81d639af4f75e348bf0e19f67639ff32"
+    },
+    {
+      "path": "backend/task_c_samples/defense.pptx",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/defense.pptx",
+      "sha256": "49c95f2a346146403a0e20b0e1297d838c722f1a9e4e1a41f2feb7982918e5aa"
+    },
+    {
+      "path": "backend/task_c_samples/live-check-selection.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/live-check-selection.json",
+      "sha256": "a7e65d9f55dc7b6d737f550599d6cc2e32f3c5fdc4b9d174af5fada189fd7392"
+    },
+    {
+      "path": "backend/task_c_samples/live-check.md",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/live-check.md",
+      "sha256": "3f076d1c86ea56def4621b2cad46f589f5d99def8b7a980095186c560e8a11c0"
+    },
+    {
+      "path": "backend/task_c_samples/paper-mock-result.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/paper-mock-result.json",
+      "sha256": "5a9b48540a1a0ff10436f9c3ce9d3a52c143e8cc3b8c34108612d42d7e9a9ef2"
+    },
+    {
+      "path": "backend/task_c_samples/paper-selection.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/paper-selection.json",
+      "sha256": "39cead813a2b0fca1228e3b3652501ffb61f829a8fa005eca3b73c05d82c219d"
+    },
+    {
+      "path": "backend/task_c_samples/paper.docx",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/paper.docx",
+      "sha256": "4140be732f11d3dd7564f271fa481c4afe2124d259c457cd5aa1328edb816ecd"
+    },
+    {
+      "path": "backend/task_c_samples/proposal-mock-result.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/proposal-mock-result.json",
+      "sha256": "3c71c39065fd0a8ebf436d193f23fdba93124ed70e5088da96672f657990c3ad"
+    },
+    {
+      "path": "backend/task_c_samples/proposal-selection.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/proposal-selection.json",
+      "sha256": "37a4e1b6e9dd214b322219327dba55957b18b191426dbcc6343adc273b83c8bd"
+    },
+    {
+      "path": "backend/task_c_samples/proposal.pdf",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/proposal.pdf",
+      "sha256": "a820fc071628295aff3c5e3e75f0de51adfddbfb8ad2fb928624638f3c71d54c"
+    },
+    {
+      "path": "backend/task_c_samples/skill_contracts/academic-paper-v1.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/skill_contracts/academic-paper-v1.json",
+      "sha256": "e074ea659afa26cc1570f26a8b3cc839f112d600fff188a65bafa982c002d8d8"
+    },
+    {
+      "path": "backend/task_c_samples/skill_contracts/competition-proposal-v1.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/skill_contracts/competition-proposal-v1.json",
+      "sha256": "89801ef2658e79159d69128105878cb3dde33f7b2feacc4b21ca3613d6a3d0eb"
+    },
+    {
+      "path": "backend/task_c_samples/skill_contracts/Failure.schema.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/skill_contracts/Failure.schema.json",
+      "sha256": "59d923a77638d7483e5243eb9353c7275817fa68836ad2131f0d4c50222569b4"
+    },
+    {
+      "path": "backend/task_c_samples/skill_contracts/ppt-defense-v1.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/skill_contracts/ppt-defense-v1.json",
+      "sha256": "d4a1047c0cf5961eda6f4b9ca62877c73cc190eb7f22b3fab8011ffa8c193e3e"
+    },
+    {
+      "path": "backend/task_c_samples/skill_contracts/ReviewResult.schema.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/skill_contracts/ReviewResult.schema.json",
+      "sha256": "eb5c4dcd11c81c76a737df1e27552ba30d2c8d7d259975cb816e989cfa7e6d68"
+    },
+    {
+      "path": "backend/task_c_samples/skill_contracts/ScopePreview.schema.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/skill_contracts/ScopePreview.schema.json",
+      "sha256": "4cac542314f331b2812d8cd29cd672f2ab25c54b4b8adbf68f7501ab3d661cca"
+    },
+    {
+      "path": "backend/task_c_samples/skill_contracts/TaskInput.schema.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/skill_contracts/TaskInput.schema.json",
+      "sha256": "54a56eabf95b706a904a5a3baffd0161da0336d12562ff88a579d7dc76bc4e7d"
+    },
+    {
+      "path": "backend/task_c_samples/test-config.json",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/test-config.json",
+      "sha256": "c77cb518bc1c9cbb5692dd89733f42be2e57a544815b82f28697056998efc5c7"
+    },
+    {
+      "path": "backend/task_c_samples/验收比对记录.md",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_samples/验收比对记录.md",
+      "sha256": "2eee27402b26596b3fd947725eae8764489149039076f2ab55e7ddb3f2c48527"
+    },
+    {
+      "path": "backend/task_c_tests/samples.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_tests/samples.py",
+      "sha256": "a409504239ba5e100aa295ca725d2387327139e9ac1675ca145d3692c4af34ae"
+    },
+    {
+      "path": "backend/task_c_tests/test_review_agent.py",
+      "category": "B/C原样",
+      "source": "WenSai-Backend.zip/WenSai-Backend/task_c_tests/test_review_agent.py",
+      "sha256": "ceb7c8f3ce82da63b0e30465c95422388f4e7cbe07a73e94d570bb429b7ab0c5"
+    },
+    {
+      "path": "backend/tests/test_acceptance.py",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/tests/test_acceptance.py",
+      "sha256": "c5e8561f33f05fd151f3fa9caee7bb374dc07b9ec54afc5959ae3143ed253cd0"
+    },
+    {
+      "path": "backend/tests/test_adapters.py",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/tests/test_adapters.py",
+      "sha256": "6f6d380c254c5116c5401ab4e8da1f4541ceab1a2f71af80fcc84bd2b5f0e1c6"
+    },
+    {
+      "path": "backend/tests/test_desktop.py",
+      "category": "新增适配/入口/测试",
+      "source": "此前整合工程",
+      "sha256": "1f60449d2490a4bfc18b8d1108e8d185c98c2874ec26f8a67f9ddcda3a1b0da6"
+    },
+    {
+      "path": "backend/tests/test_goal_agent.py",
+      "category": "新增适配/入口/测试",
+      "source": "此前整合工程",
+      "sha256": "8d2ba38900c03c607e9361ad40e34d26dfe709df4c19dfa711af817ec4588010"
+    },
+    {
+      "path": "backend/tests/test_invariants.py",
+      "category": "A原样",
+      "source": "A(1).zip/wensai/tests/test_invariants.py",
+      "sha256": "a020185d60dd52f4f38debc70db22c54715a5e9800689bd4e94ab5ff276225ba"
+    }
+  ]
+}

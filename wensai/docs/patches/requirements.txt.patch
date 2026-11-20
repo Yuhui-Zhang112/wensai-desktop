@@ -1,0 +1,16 @@
+diff --git a/requirements.txt b/requirements.txt
+index f170e71..f425c8f 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -5,3 +5,11 @@ uvicorn==0.52.1
+ websockets==16.0
+ python-multipart==0.0.32
+ pypdf==6.21.4
++python-docx>=1.2,<2
++python-pptx>=1.0.2,<2
++PyMuPDF>=1.26,<2
++markdown-it-py>=3,<5
++mdit-py-plugins>=0.5,<1
++jsonschema>=4.23,<5
++httpx>=0.28,<1
++keyring>=25,<26

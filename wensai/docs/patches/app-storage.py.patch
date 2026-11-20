@@ -1,0 +1,51 @@
+diff --git a/app/storage.py b/app/storage.py
+index 11c37c6..a3d6825 100644
+--- a/app/storage.py
++++ b/app/storage.py
+@@ -27,6 +27,8 @@ OFFICE = {
+     ".pptx": ("ppt/presentation.xml", "presentationml.presentation.main", "presentationml", "presentation"),
+ }
+ MIME_TYPES = {
++    ".txt": "text/plain",
++    ".md": "text/markdown",
+     ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+     ".pptx": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+     ".pdf": PDF,
+@@ -41,7 +43,7 @@ CHUNK = 1024 * 1024
+ # OPC metadata and the main XML are inspected with explicit expansion limits.
+ MAX_METADATA = 4 * CHUNK
+ MAX_MAIN_XML = 256 * CHUNK
+-GENERATED_NAME = re.compile(r"(?:[a-f0-9]{32}|[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12})\.(?:docx|pptx|pdf)")
++GENERATED_NAME = re.compile(r"(?:[a-f0-9]{32}|[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12})\.(?:docx|pptx|pdf|txt|md)")
+ 
+ 
+ def _unsafe() -> ApiError:
+@@ -135,7 +137,7 @@ def check_name(filename: str | None) -> tuple[str, str]:
+         raise _unsafe()
+     extension = Path(filename).suffix.lower()
+     if extension not in MIME_TYPES:
+-        raise ApiError(415, "UNSUPPORTED_FILE_TYPE", "支持的文件扩展名为 .docx、.pptx 和 .pdf。")
++        raise ApiError(415, "UNSUPPORTED_FILE_TYPE", "支持 DOCX、PPTX、PDF、TXT 和 Markdown。")
+     return filename, extension
+ 
+ 
+@@ -203,7 +205,18 @@ def _validate_office(stream: BinaryIO, extension: str) -> None:
+ def validate_type(stream: BinaryIO, extension: str) -> None:
+     try:
+         stream.seek(0)
+-        if extension == ".pdf":
++        if extension in {".txt", ".md"}:
++            import codecs
++            decoder = codecs.getincrementaldecoder("utf-8-sig")()
++            size = 0
++            while chunk := stream.read(CHUNK):
++                size += len(chunk)
++                if '\0' in decoder.decode(chunk):
++                    raise ValueError("binary content in text material")
++            decoder.decode(b'', final=True)
++            if size == 0:
++                raise ValueError("empty file")
++        elif extension == ".pdf":
+             # Inspect the catalog and page-tree type without extracting page content.
+             reader = PdfReader(stream, strict=True)
+             if reader.is_encrypted:

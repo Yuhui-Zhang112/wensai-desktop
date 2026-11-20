@@ -53,3 +53,9 @@ wensai/data/
 *.sqlite3
 *.sqlite3-wal
 *.sqlite3-shm
+
+# 前端
+node_modules/
+frontend/dist/
+frontend/src-tauri/target/
+frontend/src-tauri/gen/

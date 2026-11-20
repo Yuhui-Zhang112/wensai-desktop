@@ -1,0 +1,54 @@
+{
+  "academic_ok.docx": {
+    "profile": "academic-paper-v1",
+    "fail": []
+  },
+  "academic_errors.docx": {
+    "profile": "academic-paper-v1",
+    "fail": [
+      "word-fonts",
+      "word-size",
+      "word-spacing",
+      "word-margins",
+      "headings",
+      "captions",
+      "caption-numbers",
+      "paper-sections",
+      "formula-labels",
+      "references"
+    ]
+  },
+  "proposal_ok.docx": {
+    "profile": "competition-proposal-v1",
+    "rendered_page_count": 2,
+    "fail": []
+  },
+  "proposal_errors.docx": {
+    "profile": "competition-proposal-v1",
+    "rendered_page_count": 35,
+    "fail": [
+      "word-fonts",
+      "word-size",
+      "word-spacing",
+      "word-margins",
+      "headings",
+      "captions",
+      "caption-numbers",
+      "proposal-toc",
+      "proposal-sections",
+      "proposal-pages"
+    ]
+  },
+  "defense_ok.pptx": {
+    "profile": "ppt-defense-v1",
+    "fail": []
+  },
+  "defense_errors.pptx": {
+    "profile": "ppt-defense-v1",
+    "fail": [
+      "slide-density",
+      "slide-fonts",
+      "slide-hierarchy"
+    ]
+  }
+}

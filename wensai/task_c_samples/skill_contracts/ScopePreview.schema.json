@@ -1,0 +1,283 @@
+{
+  "$defs": {
+    "ImagePreview": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Block Id",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/SourceRef"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "mime_type": {
+          "enum": [
+            "image/png",
+            "image/jpeg"
+          ],
+          "title": "Mime Type",
+          "type": "string"
+        },
+        "bytes": {
+          "title": "Bytes",
+          "type": "integer"
+        },
+        "alt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Alt"
+        }
+      },
+      "required": [
+        "block_id",
+        "source",
+        "sha256",
+        "mime_type",
+        "bytes"
+      ],
+      "title": "ImagePreview",
+      "type": "object"
+    },
+    "SourceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "page": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page"
+        },
+        "slide": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Slide"
+        },
+        "section": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Section"
+        },
+        "paragraph": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Paragraph"
+        },
+        "line_start": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Line Start"
+        },
+        "line_end": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Line End"
+        },
+        "bbox": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bbox"
+        },
+        "coordinate_space": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Coordinate Space"
+        },
+        "part": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Part"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "title": "SourceRef",
+      "type": "object"
+    },
+    "TextPreview": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Block Id",
+          "type": "string"
+        },
+        "kind": {
+          "title": "Kind",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/SourceRef"
+        },
+        "start": {
+          "title": "Start",
+          "type": "integer"
+        },
+        "end": {
+          "title": "End",
+          "type": "integer"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "block_id",
+        "kind",
+        "source",
+        "start",
+        "end",
+        "text"
+      ],
+      "title": "TextPreview",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "task_id": {
+      "pattern": "^[A-Za-z0-9_.:-]{1,100}$",
+      "title": "Task Id",
+      "type": "string"
+    },
+    "revision_id": {
+      "pattern": "^[A-Za-z0-9_.:-]{1,100}$",
+      "title": "Revision Id",
+      "type": "string"
+    },
+    "profile_id": {
+      "pattern": "^[A-Za-z0-9_.:-]{1,100}$",
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "text_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Text Digest",
+      "type": "string"
+    },
+    "image_digest": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Image Digest"
+    },
+    "text": {
+      "items": {
+        "$ref": "#/$defs/TextPreview"
+      },
+      "title": "Text",
+      "type": "array"
+    },
+    "images": {
+      "items": {
+        "$ref": "#/$defs/ImagePreview"
+      },
+      "title": "Images",
+      "type": "array"
+    }
+  },
+  "required": [
+    "task_id",
+    "revision_id",
+    "profile_id",
+    "text_digest",
+    "text",
+    "images"
+  ],
+  "title": "ScopePreview",
+  "type": "object"
+}
