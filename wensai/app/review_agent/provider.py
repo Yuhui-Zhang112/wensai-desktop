@@ -12,6 +12,14 @@ SERVICE = "WenSai.DeepSeek"
 ACCOUNT = "api_key"
 
 
+def validate_key(key: str) -> str:
+    """凭据格式校验：非空、ASCII、可打印、不含空白、长度受限。"""
+    if (not isinstance(key, str) or not key or len(key) > 300 or not key.isascii()
+            or not key.isprintable() or any(c.isspace() for c in key)):
+        raise ReviewError("credential_invalid", "DeepSeek 凭据格式无效。")
+    return key
+
+
 class CredentialStore(Protocol):
     def read(self) -> str: ...
 
@@ -51,8 +59,7 @@ class SystemCredentialStore:
             pass
 
     def write(self, key):
-        if not isinstance(key, str) or not key or len(key) > 300 or not key.isascii() or not key.isprintable() or any(c.isspace() for c in key):
-            raise ReviewError("credential_invalid", "DeepSeek 凭据格式无效。")
+        validate_key(key)
         try:
             self._backend().set_password(SERVICE, ACCOUNT, key)
         except ReviewError:

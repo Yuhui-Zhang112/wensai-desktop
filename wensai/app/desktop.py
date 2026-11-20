@@ -21,6 +21,7 @@ from .desktop_engine import append_event, change
 from .material_review import parse_document, validate_document, load_profile, check_document, MaterialError
 from .material_review.model import Document, Block, Source
 from .review_agent import TaskInput, Selection, TextSlice, Approval, ReviewError, SystemCredentialStore, preview_scope
+from .review_agent.provider import validate_key
 from .review_agent.scope import ALLOWED_TEXT
 from .review_agent.skills import select_skill
 
@@ -473,7 +474,7 @@ def credential_status(store: SystemCredentialStore = Depends(credential_store)):
 def save_credential(payload: CredentialPayload, store: SystemCredentialStore = Depends(credential_store)):
     """保存 DeepSeek Key。只写系统钥匙串，不落数据库、不写日志。"""
     try:
-        store.write(payload.apiKey.strip())
+        store.write(validate_key(payload.apiKey.strip()))
     except ReviewError as error:
         raise ApiError(422, error.code, str(error)) from error
     return {'provider': 'deepseek', 'configured': True, 'storage': 'os_keychain'}
