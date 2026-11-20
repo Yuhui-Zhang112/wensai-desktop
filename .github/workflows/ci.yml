@@ -30,7 +30,8 @@ jobs:
       - name: Test
         run: |
           python -m pytest tests/test_desktop.py tests/test_goal_agent.py \
-            tests/test_adapters.py task_b_tests task_c_tests -q
+            tests/test_adapters.py tests/test_acceptance.py tests/test_invariants.py \
+            task_b_tests task_c_tests -q
 
   frontend:
     name: frontend (react + tauri shell)
