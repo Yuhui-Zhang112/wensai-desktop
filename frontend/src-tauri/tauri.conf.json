@@ -41,7 +41,6 @@
         "silent": true
       },
       "nsis": {
-        "installerFilename": "WenSai_{{version}}_x64-setup.exe",
         "languages": [
           "SimpChinese",
           "English"
