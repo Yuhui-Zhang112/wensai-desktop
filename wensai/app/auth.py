@@ -139,6 +139,10 @@ class AuthMiddleware:
                 if raw.lower().startswith("bearer "):
                     token = raw[7:].strip()
                 break
+        if not token and path.endswith("/events/ws"):
+            # 浏览器无法给 WebSocket 设置请求头，只对事件通道接受查询参数
+            from urllib.parse import parse_qs
+            token = (parse_qs(scope.get("query_string", b"").decode("latin-1")).get("token") or [""])[0]
 
         user = resolve_token(token, self.settings.db_path)
         if user is None:

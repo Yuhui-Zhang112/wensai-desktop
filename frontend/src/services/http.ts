@@ -2,6 +2,7 @@ import type { Block, ConnectionState, Decision, Material, Profile, Project, Task
 import { validateFile } from '../domain';
 import { config } from '../config';
 import type { ReviewService } from './types';
+import { getToken } from './auth';
 export interface ScopePreview {
   taskId: string; versionId: string; provider: 'mock' | 'deepseek'; destination: string;
   textDigest: string; text: { block_id: string; text: string; source: Record<string, unknown> }[]; note: string;
@@ -13,11 +14,16 @@ export class HttpService implements ReviewService {
   async request<T>(path: string, init: RequestInit = {}): Promise<T> {
     let response: Response;
     try {
+      const token = getToken();
+      const headers: Record<string, string> = init.body instanceof FormData
+        ? {}
+        : { 'Content-Type': 'application/json' };
+      if (token) headers.Authorization = `Bearer ${token}`;
       response = await fetch(`${config.apiBase}/api/v1/desktop${path}`, {
-        ...init, signal: AbortSignal.timeout(60000),
-        headers: init.body instanceof FormData ? undefined : { 'Content-Type': 'application/json' },
+        ...init, signal: AbortSignal.timeout(60000), headers,
       });
     } catch { throw new Error('无法连接本地服务，或请求已超时。请确认服务已启动后重试。'); }
+    if (response.status === 401) throw new Error('登录已过期，请刷新页面重新登录。');
     if (!response.ok) {
       const data = await response.json().catch(() => ({}));
       throw new Error(data.error?.message || `本地服务处理失败（${response.status}）。请检查配置后重试。`);
@@ -56,7 +62,9 @@ export class HttpService implements ReviewService {
     const connect = () => {
       if (closed) return;
       state(retries ? 'reconnecting' : 'connecting');
-      const url = new URL(`${config.apiBase}/api/v1/desktop/tasks/${encodeURIComponent(taskId)}/events/ws?after=${cursor}`);
+      const token = getToken();
+      const url = new URL(`${config.apiBase}/api/v1/desktop/tasks/${encodeURIComponent(taskId)}/events/ws?after=${cursor}`
+        + (token ? `&token=${encodeURIComponent(token)}` : ''));
       url.protocol = 'ws:';
       socket = new WebSocket(url);
       socket.onopen = () => { if (!closed) { retries = 0; state('live'); } };
