@@ -28,6 +28,7 @@ class Settings:
     cors_origins: tuple[str, ...] = VITE_ORIGINS
     max_file_bytes: int = MAX_FILE_BYTES
     mock_step_seconds: float = 0.15
+    auth_required: bool = False
 
     def __post_init__(self) -> None:
         if self.environment not in {"development", "production", "test"}:
@@ -63,4 +64,5 @@ class Settings:
             log_level=env.get("WENSAI_LOG_LEVEL", "info"),
             cors_origins=tuple(s.strip() for s in origins.split(",") if s.strip()),
             mock_step_seconds=float(env.get("WENSAI_MOCK_STEP_SECONDS", "0.15")),
+            auth_required=env.get("WENSAI_AUTH", "off").lower() in {"on", "1", "true", "yes"},
         )

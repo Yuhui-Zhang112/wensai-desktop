@@ -30,7 +30,8 @@ jobs:
       - name: Test
         run: |
           python -m pytest tests/test_desktop.py tests/test_goal_agent.py \
-            tests/test_adapters.py tests/test_acceptance.py tests/test_invariants.py tests/test_credential.py \
+            tests/test_adapters.py tests/test_acceptance.py tests/test_invariants.py \
+            tests/test_credential.py tests/test_auth.py \
             task_b_tests task_c_tests -q
 
   frontend:

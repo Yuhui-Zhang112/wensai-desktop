@@ -11,7 +11,7 @@ from starlette.concurrency import run_in_threadpool
 from starlette.responses import FileResponse
 from starlette.types import Receive, Scope, Send
 
-from . import storage
+from . import auth, storage
 from .common import ApiError, get_db
 from .db import new_id, now, transaction
 
@@ -65,7 +65,8 @@ VERSION_QUERY = """
 
 
 def project_record(conn: sqlite3.Connection, project_id: str) -> dict:
-    row = conn.execute("SELECT * FROM projects WHERE id = ?", (project_id,)).fetchone()
+    clause, params = auth.owner_clause("owner_id")
+    row = conn.execute("SELECT * FROM projects WHERE id = ?" + clause, (project_id, *params)).fetchone()
     if row is None:
         raise ApiError(404, "PROJECT_NOT_FOUND", "找不到该项目。")
     return dict(row)
@@ -109,8 +110,8 @@ def create_project(body: ProjectCreate, request: Request, conn: Database):
     storage.initialize_project(file_root, project_id)
     try:
         with transaction(conn):
-            conn.execute("INSERT INTO projects(id,name,description) VALUES (?,?,?)",
-                         (project_id, body.name, body.description))
+            conn.execute("INSERT INTO projects(id,name,description,owner_id) VALUES (?,?,?,?)",
+                         (project_id, body.name, body.description, auth.current_user()))
             result = project_record(conn, project_id)
     except BaseException:
         storage.remove_empty_project(file_root, project_id)
@@ -120,7 +121,8 @@ def create_project(body: ProjectCreate, request: Request, conn: Database):
 
 @router.get("/projects", response_model=list[ProjectView], summary="查询项目列表")
 def list_projects(conn: Database):
-    return [dict(row) for row in conn.execute("SELECT * FROM projects ORDER BY created_at DESC,id")]
+    clause, params = auth.owner_clause("owner_id")
+    return [dict(row) for row in conn.execute("SELECT * FROM projects WHERE 1=1" + clause + " ORDER BY created_at DESC,id", params)]
 
 
 @router.get("/projects/{project_id}", response_model=ProjectView, summary="查询项目信息")

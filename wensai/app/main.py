@@ -13,11 +13,13 @@ from . import materials, tasks
 from .common import ApiError, ErrorEnvelope, error_response, get_db
 from .config import Settings
 from .db import initialize, session
+from .auth import AuthMiddleware
 from .http import JsonCORSMiddleware, LocalRequestPolicy
 from .instance import instance_lock
 from .storage import recover_storage
 from .worker import Worker
 from .desktop import router as desktop_router
+from .auth_api import router as auth_router
 from .desktop_engine import Engine
 
 logger = logging.getLogger("uvicorn.error")
@@ -51,6 +53,7 @@ def create_app(settings=None, agent=None, parser=None) -> FastAPI:
                              "5XX": {"model": ErrorEnvelope, "description": "服务或数据库错误"}},
                   lifespan=lifespan)
     app.state.settings = settings
+    app.add_middleware(AuthMiddleware, settings=settings)
     app.add_middleware(LocalRequestPolicy, settings=settings)
     if settings.cors_origins:
         app.add_middleware(JsonCORSMiddleware, allow_origins=list(settings.cors_origins),
@@ -88,6 +91,7 @@ def create_app(settings=None, agent=None, parser=None) -> FastAPI:
         db.execute("SELECT 1 FROM projects LIMIT 1").fetchone()
         return {"status": "ok"}
 
+    app.include_router(auth_router, prefix="/api/v1")
     app.include_router(materials.router, prefix="/api/v1")
     app.include_router(tasks.router, prefix="/api/v1")
     app.include_router(desktop_router, prefix="/api/v1")

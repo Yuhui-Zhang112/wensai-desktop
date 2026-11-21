@@ -14,6 +14,7 @@ from fastapi import APIRouter, Depends, Request, UploadFile, WebSocket, WebSocke
 from pydantic import BaseModel, ConfigDict, Field
 from starlette.concurrency import run_in_threadpool
 
+from . import auth
 from .common import ApiError, get_db
 from .db import new_id, now, session, transaction
 from . import materials, storage
@@ -30,14 +31,18 @@ PROFILES = {'paper': 'academic-paper-v1', 'proposal': 'competition-proposal-v1',
 
 
 def material_row(conn, material_id):
-    row = conn.execute('SELECT m.* FROM materials m JOIN projects p ON p.id=m.project_id WHERE m.id=? AND m.archived=0 AND p.archived=0', (material_id,)).fetchone()
+    clause, params = auth.owner_clause('p.owner_id')
+    row = conn.execute('SELECT m.* FROM materials m JOIN projects p ON p.id=m.project_id WHERE m.id=? AND m.archived=0 AND p.archived=0' + clause,
+                       (material_id, *params)).fetchone()
     if row is None:
         raise ApiError(404, 'MATERIAL_NOT_FOUND', '材料不存在或已移除。')
     return row
 
 
 def version_row(conn, version_id):
-    row = conn.execute(materials.VERSION_QUERY + ' WHERE v.id=?', (version_id,)).fetchone()
+    clause, params = auth.owner_clause('project_id')
+    scoped = '' if not clause else ' AND v.project_id IN (SELECT id FROM projects WHERE owner_id=?)'
+    row = conn.execute(materials.VERSION_QUERY + ' WHERE v.id=?' + scoped, (version_id, *params)).fetchone()
     if row is None:
         raise ApiError(404, 'VERSION_NOT_FOUND', '版本不存在。')
     return row
@@ -99,7 +104,9 @@ def material_view(conn, settings, material_id):
 
 
 def task_row(conn, task_id):
-    row = conn.execute('SELECT * FROM desktop_tasks WHERE id=?', (task_id,)).fetchone()
+    clause, params = auth.owner_clause('project_id')
+    scoped = '' if not clause else ' AND material_id IN (SELECT m.id FROM materials m JOIN projects p ON p.id=m.project_id WHERE p.owner_id=?)'
+    row = conn.execute('SELECT * FROM desktop_tasks WHERE id=?' + scoped, (task_id, *params)).fetchone()
     if row is None:
         raise ApiError(404, 'TASK_NOT_FOUND', '评审任务不存在。')
     return row
@@ -143,7 +150,9 @@ class Name(Contract):
 
 @router.get('/projects')
 def projects(conn=Depends(get_db)):
-    return [{'id': row['id'], 'name': row['name'], 'updatedAt': row['updated_at']} for row in conn.execute('SELECT * FROM projects WHERE archived=0 ORDER BY created_at DESC')]
+    clause, params = auth.owner_clause('owner_id')
+    return [{'id': row['id'], 'name': row['name'], 'updatedAt': row['updated_at']}
+            for row in conn.execute('SELECT * FROM projects WHERE archived=0' + clause + ' ORDER BY created_at DESC', params)]
 
 
 @router.post('/projects')
@@ -158,7 +167,8 @@ def rename_project(project_id: str, body: Name, conn=Depends(get_db)):
         raise ApiError(422, 'INVALID_NAME', '名称不能为空。')
     materials.project_record(conn, project_id)
     with transaction(conn):
-        conn.execute('UPDATE projects SET name=?,updated_at=? WHERE id=?', (body.name.strip(), now(), project_id))
+        clause, params = auth.owner_clause('owner_id')
+        conn.execute('UPDATE projects SET name=?,updated_at=? WHERE id=?' + clause, (body.name.strip(), now(), project_id, *params))
     return {'ok': True}
 
 
@@ -168,7 +178,8 @@ def archive_project(project_id: str, conn=Depends(get_db)):
     with transaction(conn):
         if conn.execute("SELECT 1 FROM desktop_tasks t JOIN materials m ON m.id=t.material_id WHERE m.project_id=? AND t.status IN ('queued','running','cancelling')", (project_id,)).fetchone():
             raise ApiError(409, 'TASK_ACTIVE', '请先取消项目中正在执行的任务。')
-        conn.execute('UPDATE projects SET archived=1,updated_at=? WHERE id=?', (now(), project_id))
+        clause, params = auth.owner_clause('owner_id')
+        conn.execute('UPDATE projects SET archived=1,updated_at=? WHERE id=?' + clause, (now(), project_id, *params))
     return {'ok': True, 'retained': '原文件和历史记录保留于本地数据目录。'}
 
 
