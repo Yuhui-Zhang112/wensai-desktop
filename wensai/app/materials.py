@@ -73,7 +73,13 @@ def project_record(conn: sqlite3.Connection, project_id: str) -> dict:
 
 
 def material_record(conn: sqlite3.Connection, material_id: str) -> dict:
-    row = conn.execute("SELECT * FROM materials WHERE id = ?", (material_id,)).fetchone()
+    owner = auth.current_user()
+    if owner:
+        row = conn.execute(
+            """SELECT m.* FROM materials m JOIN projects p ON p.id = m.project_id
+                WHERE m.id = ? AND p.owner_id = ?""", (material_id, owner)).fetchone()
+    else:
+        row = conn.execute("SELECT * FROM materials WHERE id = ?", (material_id,)).fetchone()
     if row is None:
         raise ApiError(404, "MATERIAL_NOT_FOUND", "找不到该材料。")
     return dict(row)
@@ -210,10 +216,14 @@ class VersionDownload(FileResponse):
 @router.get("/versions/{version_id}/export", response_class=FileResponse, summary="下载指定版本",
             responses={200: {"content": {"application/octet-stream": {"schema": {"type": "string", "format": "binary"}}}}})
 def export_version(version_id: str, request: Request, conn: Database):
+    owner = auth.current_user()
+    scoped = "" if not owner else " AND p.owner_id = ?"
+    params = (version_id,) if not owner else (version_id, owner)
     row = conn.execute("""
         SELECT f.project_id,f.relative_path,f.original_name,f.mime_type,f.sha256
-        FROM material_versions AS v JOIN files AS f ON f.id=v.file_id WHERE v.id=?
-    """, (version_id,)).fetchone()
+        FROM material_versions AS v JOIN files AS f ON f.id=v.file_id
+        JOIN projects p ON p.id = f.project_id WHERE v.id=?
+    """ + scoped, params).fetchone()
     if row is None:
         raise ApiError(404, "VERSION_NOT_FOUND", "找不到该版本。")
     file_root = request.app.state.settings.file_root

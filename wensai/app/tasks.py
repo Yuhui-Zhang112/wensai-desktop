@@ -9,6 +9,7 @@ from pydantic import BaseModel, ConfigDict, StringConstraints
 from starlette.concurrency import run_in_threadpool
 
 from .agent import Dimension
+from . import auth
 from .common import ApiError, get_db
 from .db import new_id, now, session, transaction
 
@@ -79,11 +80,20 @@ class ReviewResult(BaseModel):
     updated_at: str
 
 
+_TASK_OWNER_SQL = """ AND material_version_id IN (
+        SELECT v.id FROM material_versions v
+          JOIN materials m ON m.id = v.material_id
+          JOIN projects p ON p.id = m.project_id
+         WHERE p.owner_id = ?)"""
+
+
 def _task(conn, task_id):
+    owner = auth.current_user()
+    scoped, params = ("", ()) if not owner else (_TASK_OWNER_SQL, (owner,))
     row = conn.execute(
         """SELECT id, material_version_id AS version_id, profile_id, status, attempt,
-                  error_code, error_message, created_at, updated_at FROM tasks WHERE id=?""",
-        (task_id,),
+                  error_code, error_message, created_at, updated_at FROM tasks WHERE id=?""" + scoped,
+        (task_id, *params),
     ).fetchone()
     if row is None:
         raise ApiError(404, "TASK_NOT_FOUND", "任务不存在。")
@@ -111,7 +121,17 @@ def change_state(conn, task_id, status, message, *, error_code=None, error_messa
 @router.post("", response_model=Task, status_code=201, summary="对指定材料版本创建评审任务")
 def create_task(payload: NewTask, request: Request, conn: DB):
     with transaction(conn):
-        if not conn.execute("SELECT 1 FROM material_versions WHERE id=?", (payload.version_id,)).fetchone():
+        owner = auth.current_user()
+        if owner:
+            allowed = conn.execute(
+                """SELECT 1 FROM material_versions v
+                     JOIN materials m ON m.id = v.material_id
+                     JOIN projects p ON p.id = m.project_id
+                    WHERE v.id = ? AND p.owner_id = ?""",
+                (payload.version_id, owner)).fetchone()
+        else:
+            allowed = conn.execute("SELECT 1 FROM material_versions WHERE id=?", (payload.version_id,)).fetchone()
+        if not allowed:
             raise ApiError(404, "VERSION_NOT_FOUND", "材料版本不存在。")
         if not conn.execute("SELECT 1 FROM review_profiles WHERE id=?", (payload.profile_id,)).fetchone():
             raise ApiError(404, "PROFILE_NOT_FOUND", "评审配置不存在。")

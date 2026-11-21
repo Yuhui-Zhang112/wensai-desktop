@@ -84,3 +84,26 @@ def test_projects_are_isolated_between_users(client):
     assert client.get(API + "/desktop/projects", headers=auth(tb)).json() == []
     assert client.patch(API + f"/desktop/projects/{pid}", json={"name": "改名"}, headers=auth(tb)).status_code == 404
     assert client.delete(API + f"/desktop/projects/{pid}", headers=auth(tb)).status_code == 404
+
+
+def test_cross_user_material_version_and_export_denied(client):
+    ta = register(client, "alice").json()["token"]
+    tb = register(client, "bob").json()["token"]
+    project = client.post(API + "/desktop/projects", json={"name": "p"}, headers=auth(ta)).json()
+
+    uploaded = client.post(f"{API}/projects/{project['id']}/materials", headers=auth(ta),
+                           files={"file": ("a.txt", b"hello world", "text/plain")})
+    assert uploaded.status_code == 201, uploaded.text
+    body = uploaded.json()
+    mid, vid = body["material_id"], body["version_id"]
+
+    assert client.get(f"{API}/materials/{mid}/versions", headers=auth(ta)).status_code == 200
+    assert client.get(f"{API}/versions/{vid}/export", headers=auth(ta)).status_code == 200
+
+    assert client.get(f"{API}/materials/{mid}/versions", headers=auth(tb)).status_code == 404
+    assert client.get(f"{API}/versions/{vid}/export", headers=auth(tb)).status_code == 404
+    assert client.get(f"{API}/projects/{project['id']}/materials", headers=auth(tb)).status_code == 404
+    assert client.post(f"{API}/materials/{mid}/versions", headers=auth(tb),
+                       files={"file": ("b.txt", b"x", "text/plain")},
+                       data={"source_version_id": vid}).status_code == 404
+    assert client.get(f"{API}/tasks/does-not-exist", headers=auth(tb)).status_code == 404
