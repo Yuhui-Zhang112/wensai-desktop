@@ -12,7 +12,20 @@ export function setToken(token: string | null): void {
   try { token ? localStorage.setItem(KEY, token) : localStorage.removeItem(KEY); } catch { /* 隐私模式下忽略 */ }
 }
 
-export const authEnabled = () => config.mode === 'real';
+export const isRealMode = () => config.mode === 'real';
+
+/** 问服务端是否启用了账号体系；单机模式下为 false，直接进主界面。 */
+export async function authStatus(): Promise<boolean> {
+  if (config.mode !== 'real') return false;
+  try {
+    const response = await fetch(`${config.apiBase}/api/v1/auth/status`, { signal: AbortSignal.timeout(8000) });
+    if (!response.ok) return false;
+    const data = await response.json() as { authRequired?: boolean };
+    return Boolean(data.authRequired);
+  } catch {
+    return false;
+  }
+}
 
 async function post<T>(path: string, body: unknown): Promise<T> {
   let response: Response;

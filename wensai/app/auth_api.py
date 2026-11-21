@@ -38,6 +38,11 @@ def _payload(user_id: str, username: str, session: dict) -> dict:
             "user": {"id": user_id, "username": username}}
 
 
+@router.get("/status", summary="服务端是否启用账号体系（公开）")
+def status(request: Request):
+    return {"authRequired": bool(request.app.state.settings.auth_required)}
+
+
 @router.post("/register", status_code=201, summary="用邀请码注册")
 def register(body: RegisterIn, request: Request):
     _require_enabled(request)
